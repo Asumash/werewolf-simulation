@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /mnt/c/Users/asuma/Documents/werewolf/engine /mnt/c/Users/asuma/Documents/werewolf/players /mnt/c/Users/asuma/Documents/werewolf/recorder /mnt/c/Users/asuma/Documents/werewolf/prompts /mnt/c/Users/asuma/Documents/werewolf/data)",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\asuma\\\\Documents\\\\werewolf\\\\engine\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\asuma\\\\Documents\\\\werewolf\\\\players\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\asuma\\\\Documents\\\\werewolf\\\\recorder\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\asuma\\\\Documents\\\\werewolf\\\\prompts\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\asuma\\\\Documents\\\\werewolf\\\\data\")",
+      "PowerShell(cd C:\\\\Users\\\\asuma\\\\Documents\\\\werewolf; $env:PYTHONIOENCODING=\"utf-8\"; python run_cp_only.py 2 2>&1)",
+      "PowerShell(cd C:\\\\Users\\\\asuma\\\\Documents\\\\werewolf; \\(Get-ChildItem data\\).Count)"
+    ]
+  }
+}
