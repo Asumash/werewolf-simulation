@@ -168,15 +168,19 @@ def _calculate_wolf_probabilities(
         if pid == self_id:
             continue
         cnt = statement_counts[pid]
+
+        # ── 沈黙・寡黙ペナルティ（投票開始時のみ） ──
         if is_voting and cnt == 0:
-            # 投票時に一言も話さなかった → 大きく上昇
+            # 一言も話さなかった → 大きく上昇
             wolf_prob[pid] = min(1.0, wolf_prob[pid] + 0.35)
         elif is_voting and cnt == 1:
-            # 投票時に1回しか話さなかった → やや怪しい
+            # 1回しか話さなかった → やや上昇
             wolf_prob[pid] = min(1.0, wolf_prob[pid] + 0.20)
-        elif cnt > 1:
-            # 発言するごとに上昇、回数が増えるほど1回あたりの上昇量も増える
-            # 合計上昇 = 0.005 * (1 + 2 + ... + cnt) = 0.005 * cnt*(cnt+1)/2
+
+        # ── 発言回数に応じた微量上昇（随時） ──
+        # 回数が増えるほど1回あたりの上昇量も増える
+        # 合計上昇 = 0.005 * cnt*(cnt+1)/2
+        if cnt >= 1:
             bonus = 0.005 * cnt * (cnt + 1) / 2
             wolf_prob[pid] = min(1.0, wolf_prob[pid] + bonus)
 
