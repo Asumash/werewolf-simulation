@@ -74,6 +74,7 @@ def _calculate_wolf_probabilities(
     self_id: str,
     state: GameState,
     my_known_wolves: list[str],
+    is_voting: bool = False,
 ) -> dict[str, float]:
     """
     各プレイヤーの「人狼である確率」を返す。
@@ -98,8 +99,7 @@ def _calculate_wolf_probabilities(
     # 占い結果の適用
     for claimer, target, result in seer_claims:
         if result == "人狼":
-            wolf_prob[target] = min(1.0, wolf_prob[target] + 0.5)
-            wolf_prob[claimer] = max(0.0, wolf_prob[claimer] - 0.1)
+            wolf_prob[target] = min(1.0, wolf_prob[target] + 0.25)
         else:
             wolf_prob[target] = max(0.0, wolf_prob[target] - 0.25)
 
@@ -154,6 +154,31 @@ def _calculate_wolf_probabilities(
                 or f"{pid}は人狼" in stmt
             ):
                 wolf_prob[pid] = min(1.0, wolf_prob[pid] + 0.1 * accuser_credibility)
+
+    # ── 発言数による疑惑調整（無口・おしゃべりは怪しい） ──
+    # 発言回数を集計
+    statement_counts: dict[str, int] = {pid: 0 for pid in players}
+    for turn in state.discussion_log:
+        if turn.player_id in statement_counts:
+            statement_counts[turn.player_id] += 1
+
+    total_turns = len(state.discussion_log)
+
+    for pid in players:
+        if pid == self_id:
+            continue
+        cnt = statement_counts[pid]
+        if is_voting and cnt == 0:
+            # 投票時に一言も話さなかった → 大きく上昇
+            wolf_prob[pid] = min(1.0, wolf_prob[pid] + 0.35)
+        elif is_voting and cnt == 1:
+            # 投票時に1回しか話さなかった → やや怪しい
+            wolf_prob[pid] = min(1.0, wolf_prob[pid] + 0.20)
+        elif cnt > 1:
+            # 発言するごとに上昇、回数が増えるほど1回あたりの上昇量も増える
+            # 合計上昇 = 0.005 * (1 + 2 + ... + cnt) = 0.005 * cnt*(cnt+1)/2
+            bonus = 0.005 * cnt * (cnt + 1) / 2
+            wolf_prob[pid] = min(1.0, wolf_prob[pid] + bonus)
 
     # 0〜1 にクリップ
     return {pid: max(0.0, min(1.0, p)) for pid, p in wolf_prob.items()}
@@ -693,7 +718,7 @@ class RuleBasedCP(PlayerInterface):
                 known_wolves.append(target)
 
         wolf_probs = _calculate_wolf_probabilities(
-            self.player_id, state, known_wolves
+            self.player_id, state, known_wolves, is_voting=True
         )
         # 確定人狼がいればそこへ即決
         for pid in known_wolves:
@@ -709,7 +734,9 @@ class RuleBasedCP(PlayerInterface):
             for pid in others:
                 if f"{pid}さんへの投票を勧めます" in stmt:
                     wolf_probs[pid] = min(1.0, wolf_probs.get(pid, 0) + 0.7)
-                elif f"{pid}さんのどちらかに投票" in stmt or f"{pid}さんへ投票を検討" in stmt:
+                elif (f"{pid}さんのどちらかに投票" in stmt
+                      or f"{pid}さんへ投票を検討" in stmt
+                      or f"{pid}さんへの投票を検討" in stmt):
                     wolf_probs[pid] = min(1.0, wolf_probs.get(pid, 0) + 0.5)
 
         return max(others, key=lambda p: wolf_probs.get(p, 0))
@@ -731,7 +758,10 @@ class RuleBasedCP(PlayerInterface):
         if not candidates:
             return random.choice(others)
 
-        # 村人陣営から疑われている度合いをスコア化
+        # 村人陣営から疑われている度合いをスコア化（発言数ペナルティも含む）
+        wolf_probs = _calculate_wolf_probabilities(
+            self.player_id, state, [], is_voting=True
+        )
         accusation_counts = {p: 0 for p in candidates}
         for turn in state.discussion_log:
             stmt = turn.statement

@@ -8,7 +8,14 @@
       "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\asuma\\\\Documents\\\\werewolf\\\\prompts\")",
       "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\asuma\\\\Documents\\\\werewolf\\\\data\")",
       "PowerShell(cd C:\\\\Users\\\\asuma\\\\Documents\\\\werewolf; $env:PYTHONIOENCODING=\"utf-8\"; python run_cp_only.py 2 2>&1)",
-      "PowerShell(cd C:\\\\Users\\\\asuma\\\\Documents\\\\werewolf; \\(Get-ChildItem data\\).Count)"
+      "PowerShell(cd C:\\\\Users\\\\asuma\\\\Documents\\\\werewolf; \\(Get-ChildItem data\\).Count)",
+      "Bash(python generate_data.py)",
+      "Bash(python analyze_data.py)",
+      "Bash(python check_expose.py)",
+      "Bash(del /q data\\\\game_*.jsonl)",
+      "Bash(python clean_data.py)",
+      "Bash(python generate_data.py 10000)",
+      "Bash(python generate_data.py 3000)"
     ]
   }
 }
