@@ -1,0 +1,7 @@
+# Web サーバ（リアルタイム対戦）に必要
+fastapi
+uvicorn[standard]
+python-dotenv
+
+# LLM 連携は標準ライブラリ(urllib)で実装しているため追加依存なし
+# （OpenAI/OpenRouter の SDK は不要）
