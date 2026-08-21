@@ -22,6 +22,10 @@ class Turn:
     statement: str
     is_lie: bool = False
     reasoning: str = ""
+    intent: str = ""    # seer_result / robber_result / suspect / vote_suggest / contradict / vouch / ask / none
+    target: str = ""    # 対象プレイヤーID（suspect/vote_suggest/contradict/seer_result/vouch/ask で使用）
+    result: str = ""    # seer_result のときの占い結果（"人狼" / "村人陣営"）
+    basis: list[str] = field(default_factory=list)  # 論拠：根拠にした相手/主張の参照（contradict/suspect で使用）
 
 @dataclass
 class GameState:

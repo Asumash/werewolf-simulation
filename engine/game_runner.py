@@ -60,11 +60,22 @@ class GameRunner:
             speaker_id = _weighted_choice(scores)
             player = self.players[speaker_id]
             statement, reasoning = player.make_statement(self.state)
+            # 反復回避のため発言を記録（RuleBasedCP のみ）
+            if hasattr(player, "remember_statement"):
+                player.remember_statement(statement)
+            # 構造化タグを付与（実時間ゲームと同じ形式に統一）
+            from players.rule_based import infer_tags
+            intent, target, result = infer_tags(
+                statement, self.state.player_ids, speaker_id
+            )
             turn = Turn(
                 player_id=speaker_id,
                 statement=statement,
                 reasoning=reasoning,
                 is_lie=self._detect_lie(speaker_id, statement),
+                intent=intent,
+                target=target,
+                result=result,
             )
             self.state.add_statement(turn)
             print(f"  {speaker_id}: {statement}")
