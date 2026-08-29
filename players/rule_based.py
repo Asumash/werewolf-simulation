@@ -580,7 +580,7 @@ class RuleBasedCP(PlayerInterface):
         my_count = self._my_statement_count(state)
         if my_count == 0 and ctx["has_unshared_info"]:
             return 2.5, "co"
-        if since_any_msg > 8.0:
+        if since_any_msg > 12.0:
             return 1.5, "fill"
         if my_count == 0:
             return 1.2, "open"

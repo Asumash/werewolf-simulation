@@ -1,7 +1,7 @@
 from engine.game_state import GameState, Role
 
 # ルール要約（全プロンプト共通）
-_RULES = """【ゲーム】ワンナイト人狼（5人）。役職カードは 人狼×2・占い師・怪盗・村人×3 の7枚、
+_RULES = """【ゲーム】人狼ゲーム（5人）。役職カードは 人狼×2・占い師・怪盗・村人×3 の7枚、
 うち2枚は墓地（誰の手札でもない）。夜→議論→投票の1日で決着する。
 - 占い師：夜に他プレイヤー1人の役職を見る／または墓地2枚を見る。
 - 怪盗：夜に他プレイヤー1人とカードを交換し、交換後の自分の新役職を知る（相手は知らない）。
@@ -44,9 +44,11 @@ def _log_text(state: GameState, player_id: str) -> str:
     ) or "  （まだ発言なし）"
 
 
-def build_statement_prompt(player_id: str, state: GameState, hint: str = "") -> str:
+def build_statement_prompt(player_id: str, state: GameState,
+                           hint: str = "", style: str = "") -> str:
     others = [p for p in state.player_ids if p != player_id]
     hint_line = f"\n【状況】{hint}\n" if hint else ""
+    style_line = f"- あなたの口調: {style}\n" if style else ""
     return f"""{_RULES}
 
 あなたはプレイヤー「{player_id}」。他プレイヤー: {others}
@@ -55,9 +57,14 @@ def build_statement_prompt(player_id: str, state: GameState, hint: str = "") -> 
 【これまでの議論】
 {_log_text(state, player_id)}
 {hint_line}
-いま議論で発言します。自然な日本語（40〜100文字）で1つ発言し、その「行動タグ」も付けてください。
-情報役職（占い師・怪盗）なら、結果を早めにCOする方が有利です。
+いま議論で発言します。1つだけ短く発言し、その「行動タグ」も付けてください。
 
+【話し方（重要）】オンラインで人狼を遊ぶ普通のプレイヤーになりきってください。
+- **短く**（1〜2文、目安15〜50字）。長い説明・丁寧すぎる敬語・毎回理由を述べるのは禁止。
+- 崩した口語でOK（「〜だと思う」「〜じゃない?」「うーん」等）。言い切ってもよい。
+- AIっぽく完璧に整理しない。時々ラフでよいし、質問攻め・長い矛盾指摘は避ける。
+- 情報役職（占い師・怪盗）なら結果は早めに、ただし短くCOする。
+{style_line}
 行動タグ intent は次から1つ:
 - "seer_result"  : 占い結果をCO（target=占った相手, result="人狼"または"村人陣営"）
 - "robber_result": 怪盗の交換結果をCO（target=交換相手, result=交換後の役職）
@@ -70,7 +77,7 @@ def build_statement_prompt(player_id: str, state: GameState, hint: str = "") -> 
 
 JSONのみで返答（他の文字は不要）:
 {{
-  "statement": "発言（40〜100文字）",
+  "statement": "発言（短く・15〜50字目安）",
   "intent": "上記のいずれか",
   "target": "対象のplayer_id（不要なら空文字）",
   "result": "seer_result/robber_result のときのみ（他は空文字）",

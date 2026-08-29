@@ -18,6 +18,15 @@ _VALID_INTENTS = {
     "contradict", "vouch", "ask", "none",
 }
 
+# 発話ペルソナ（人間の個体差を出す。プレイヤーごとにランダムで割り当て）
+_STYLES = [
+    "フランクでタメ口気味。短くテンポよく。",
+    "慎重で控えめ。断定を避けがち。",
+    "強気ではっきり物を言う。",
+    "のんびりマイペース。たまに雑。",
+    "分析的だが short に。理屈っぽくなりすぎない。",
+]
+
 # .env があれば読み込む（python-dotenv 利用可能な場合）
 try:
     from dotenv import load_dotenv
@@ -191,6 +200,7 @@ class AsyncLLMPlayer(LLMPlayer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.last_tags: tuple | None = None
+        self.style = random.choice(_STYLES)  # 人間らしい個体差
 
     async def _chat_async(self, prompt: str) -> str:
         loop = asyncio.get_running_loop()
@@ -248,7 +258,7 @@ class AsyncLLMPlayer(LLMPlayer):
             return 2.5, "co"
         if my == 0:
             return 1.5, "open"
-        if since_any_msg > 8.0:
+        if since_any_msg > 12.0:
             return 1.3, "fill"
         return max(0.4, 1.5 * (0.6 ** my)), "base"
 
@@ -277,7 +287,8 @@ class AsyncLLMPlayer(LLMPlayer):
         }.get(trigger, "")
         try:
             data = await self._call_json_async(
-                build_statement_prompt(self.player_id, state, hint=hint)
+                build_statement_prompt(self.player_id, state, hint=hint,
+                                       style=self.style)
             )
         except Exception as e:
             self.errors.append(f"statement: {e}")

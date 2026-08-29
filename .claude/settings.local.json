@@ -57,7 +57,11 @@
       "Bash(python -c \"import anthropic; print\\('anthropic ok'\\)\")",
       "Bash(PYTHONIOENCODING=utf-8 python \"C:/Users/asuma/AppData/Local/Temp/claude/C--Users-asuma-Documents-werewolf/a6206d44-f21f-4581-be26-8ef089a0c414/scratchpad/checkenv.py\")",
       "Bash(PYTHONIOENCODING=utf-8 N_GAMES=5 python \"C:/Users/asuma/AppData/Local/Temp/claude/C--Users-asuma-Documents-werewolf/a6206d44-f21f-4581-be26-8ef089a0c414/scratchpad/agg_llm.py\")",
-      "Bash(PYTHONIOENCODING=utf-8 N_GAMES=20 python \"C:/Users/asuma/AppData/Local/Temp/claude/C--Users-asuma-Documents-werewolf/a6206d44-f21f-4581-be26-8ef089a0c414/scratchpad/agg_llm2.py\")"
+      "Bash(PYTHONIOENCODING=utf-8 N_GAMES=20 python \"C:/Users/asuma/AppData/Local/Temp/claude/C--Users-asuma-Documents-werewolf/a6206d44-f21f-4581-be26-8ef089a0c414/scratchpad/agg_llm2.py\")",
+      "Bash(python -c \"import engine.game_runner_async, players.rule_based, players.llm_player, server; print\\('imports OK, PACE=', engine.game_runner_async.PACE, 'default_sec=', __import__\\('inspect'\\).signature\\(engine.game_runner_async.AsyncGameRunner.__init__\\).parameters['discussion_seconds'].default\\)\")",
+      "Bash(PYTHONIOENCODING=utf-8 python \"C:/Users/asuma/AppData/Local/Temp/claude/C--Users-asuma-Documents-werewolf/a6206d44-f21f-4581-be26-8ef089a0c414/scratchpad/test_async_llm.py\")",
+      "Bash(PYTHONIOENCODING=utf-8 python -m dev.run_cp_only 1)",
+      "Bash(python -c \"import server; print\\('server import OK'\\)\")"
     ]
   }
 }

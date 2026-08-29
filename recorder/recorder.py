@@ -107,7 +107,7 @@ class GameRecorder:
             ) or "  （まだ発言なし）"
 
             user_content = (
-                f"ワンナイト人狼。あなたは「{stmt['player_id']}」"
+                f"人狼ゲーム。あなたは「{stmt['player_id']}」"
                 f"（役職: {stmt['role']}）です。\n"
                 f"【夜に得た情報】{stmt['knowledge'] or 'なし'}\n"
                 f"【これまでの議論】\n{prior_log}\n\n"

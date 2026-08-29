@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ワンナイト人狼</title>
+<title>人狼ゲーム</title>
 <style>
   :root {
     --bg: #0f0f1a;
@@ -155,6 +155,7 @@
   }
   .msg.me .bubble { background: var(--accent2); border-color: #1a4a7a; }
   .msg .cpu-tag { font-size: 0.68rem; color: var(--muted); background: var(--card2); padding: 1px 5px; border-radius: 3px; }
+  .typing-indicator { padding: 2px 14px 4px; font-size: 0.75rem; color: var(--muted); font-style: italic; flex-shrink: 0; }
 
   /* システムメッセージ */
   .sys-msg {
@@ -357,7 +358,7 @@
 <!-- ロビー -->
 <div id="overlay-lobby" class="overlay">
   <div class="panel">
-    <h2>🐺 ワンナイト人狼</h2>
+    <h2>🐺 人狼ゲーム</h2>
     <div class="field">
       <label>あなたの名前</label>
       <input type="text" id="input-name" placeholder="名前を入力" maxlength="12">
@@ -367,6 +368,7 @@
       <input type="text" id="input-code" placeholder="例: AB12" maxlength="4" style="text-transform:uppercase">
     </div>
     <button class="btn btn-primary" onclick="joinRoom()">参加 / 作成</button>
+    <button class="btn" style="margin-top:8px;background:var(--card2);color:var(--text);border:1px solid var(--border)" onclick="openRules()">📖 ルールを見る</button>
     <p id="lobby-error" class="error-text"></p>
 
     <div id="waiting-section" class="hidden">
@@ -385,6 +387,41 @@
       </div>
       <p id="guest-msg" class="muted hidden" style="text-align:center">ホストがゲームを開始するまでお待ちください</p>
     </div>
+  </div>
+</div>
+
+<!-- ルール説明モーダル -->
+<div id="rules-modal" class="modal-overlay hidden">
+  <div class="modal-card" style="max-width:520px; max-height:88dvh; overflow-y:auto; text-align:left">
+    <h2 style="margin-bottom:10px">📖 ルール</h2>
+    <p style="line-height:1.7">
+      1晩で決着する短時間人狼です。<b>人間・AI・LLM</b>が同じ卓で遊べます。
+    </p>
+    <h3 style="margin:12px 0 4px">👥 役職（5人）</h3>
+    <ul style="line-height:1.8; padding-left:1.2em">
+      <li><b>人狼 ×2</b>：正体を隠して村人陣営を欺く。夜に仲間が誰か分かる。</li>
+      <li><b>占い師</b>：夜に1人の役職／または墓地2枚を見られる。</li>
+      <li><b>怪盗</b>：夜に1人とカードを交換し、交換後の自分の役職を知る。</li>
+      <li><b>村人 ×3</b>：情報はないが議論で人狼を推理する。</li>
+    </ul>
+    <p class="muted" style="font-size:0.85rem">※7枚中2枚は「墓地」（誰の手札でもない）。</p>
+    <h3 style="margin:12px 0 4px">🕐 流れ</h3>
+    <ol style="line-height:1.8; padding-left:1.2em">
+      <li><b>夜</b>：占い師・怪盗が行動</li>
+      <li><b>議論</b>：チャットで自由に発言（制限時間あり）</li>
+      <li><b>投票</b>：全員同時に1人を選ぶ</li>
+    </ol>
+    <h3 style="margin:12px 0 4px">🏆 勝敗</h3>
+    <p style="line-height:1.7">
+      最多得票者を処刑。<b>処刑された中に人狼がいれば村人陣営の勝ち</b>、
+      いなければ人狼陣営の勝ち。（怪盗は「交換後の役職」の陣営で判定）
+    </p>
+    <h3 style="margin:12px 0 4px">💬 発言のコツ（行動タグ）</h3>
+    <p style="line-height:1.7">
+      発言時に「疑う／占い結果／怪盗結果／投票誘導／矛盾指摘／信頼／質問」から
+      <b>行動タグ</b>を選ぶと、AIがあなたの意図を正確に理解します。自由入力＋タグ選択の形式です。
+    </p>
+    <button class="btn btn-primary" style="margin-top:16px" onclick="closeRules()">閉じる</button>
   </div>
 </div>
 
@@ -425,10 +462,12 @@
 <div class="header">
   <span style="font-size:1.4rem">🐺</span>
   <div>
-    <div style="font-weight:bold;font-size:1rem" id="header-title">ワンナイト人狼</div>
+    <div style="font-weight:bold;font-size:1rem" id="header-title">人狼ゲーム</div>
     <div style="font-size:0.75rem;color:var(--muted)" id="header-sub"></div>
   </div>
-  <div style="margin-left:auto;text-align:right">
+  <button onclick="openRules()" title="ルール"
+          style="margin-left:auto;background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:0.8rem">📖 ルール</button>
+  <div style="text-align:right">
     <div id="timer-display">--:--</div>
     <div id="phase-label">待機中</div>
   </div>
@@ -455,6 +494,7 @@
   <!-- チャットエリア -->
   <div class="chat-area">
     <div id="chat-log"></div>
+    <div id="typing-indicator" class="typing-indicator hidden"></div>
     <div class="intent-bar" id="intent-bar">
       <button class="intent-btn" data-intent="none"        disabled onclick="selectIntent(this)">なし</button>
       <button class="intent-btn" data-intent="suspect"     disabled onclick="selectIntent(this)">疑う</button>
@@ -490,6 +530,8 @@ const G = {
   selectedNight: null,
   llmCount: 0,
   aiSlots: 0,
+  typingSet: new Set(),
+  typingTimers: {},
 };
 
 // ─── ロビー ───────────────────────────────────────────────────────────────
@@ -542,6 +584,7 @@ function handleMsg(msg) {
     case 'night_request':  onNightRequest(msg);break;
     case 'night_result':   onNightResult(msg); break;
     case 'statement':      onStatement(msg);   break;
+    case 'typing':         onTyping(msg);      break;
     case 'vote_request':   onVoteRequest(msg); break;
     case 'vote_cast':      onVoteCast(msg);    break;
     case 'game_over':      onGameOver(msg);    break;
@@ -602,6 +645,9 @@ function onLobbyConfig(msg) {
   if (G.myName === G.host && G.aiSlots > 0) renderLlmButtons();
 }
 
+function openRules()  { document.getElementById('rules-modal').classList.remove('hidden'); }
+function closeRules() { document.getElementById('rules-modal').classList.add('hidden'); }
+
 function startGame() { send({ type: 'start_game' }); }
 
 // ─── ゲーム開始 ──────────────────────────────────────────────────────────
@@ -637,6 +683,7 @@ function renderSidePlayers() {
 function onPhase(msg) {
   stopTimer();
   G.inDiscussion = false;
+  G.typingSet.clear(); renderTyping();  // フェーズ切替で入力中表示をクリア
   document.getElementById('chat-input').disabled = true;
   document.getElementById('send-btn').disabled = true;
 
@@ -764,7 +811,37 @@ const INTENT_LABELS = {
   contradict: '矛盾指摘', vouch: '信頼', ask: '質問',
 };
 
+// ─── 入力中インジケータ（人間らしい可変テンポ）─────────────────────────────
+function onTyping(msg) {
+  G.typingSet.add(msg.player);
+  clearTimeout(G.typingTimers[msg.player]);
+  // 発言が来なくても一定時間で消す（フェーズ終了時の取りこぼし対策）
+  G.typingTimers[msg.player] = setTimeout(() => {
+    G.typingSet.delete(msg.player); renderTyping();
+  }, 8000);
+  renderTyping();
+}
+
+function clearTyping(player) {
+  G.typingSet.delete(player);
+  clearTimeout(G.typingTimers[player]);
+  renderTyping();
+}
+
+function renderTyping() {
+  const el = document.getElementById('typing-indicator');
+  if (!el) return;
+  const names = [...G.typingSet];
+  if (names.length) {
+    el.textContent = names.join('、') + ' が入力中…';
+    el.classList.remove('hidden');
+  } else {
+    el.classList.add('hidden');
+  }
+}
+
 function onStatement(msg) {
+  clearTyping(msg.player);  // 発言が来たら入力中を消す
   const log = document.getElementById('chat-log');
   const div = document.createElement('div');
   const isMe = msg.player === G.myName;
