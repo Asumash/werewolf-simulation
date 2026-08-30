@@ -118,14 +118,22 @@ async def ws_endpoint(ws: WebSocket, room_code: str, player_name: str):
             await _handle_message(room, player_name, msg)
     except WebSocketDisconnect:
         room.connections.pop(player_name, None)
-        if not room.started:
+        if room.started:
+            # ゲーム中に切断された場合、待機中のフェーズ（夜・投票）が止まらないよう
+            # デフォルト行動を投入して進行を継続させる。
+            _release_disconnected_player(room, player_name)
+            await room.broadcast({
+                "type": "system",
+                "message": f"{player_name} が切断しました（以降は自動進行）",
+            })
+        else:
             await room.broadcast({
                 "type": "player_left",
                 "name": player_name,
                 "players": room.player_list(),
                 "host": room.host,
             })
-        if not room.connections:
+        if not room.connections and not room.started:
             rooms.pop(room_code, None)
 
 
@@ -180,6 +188,25 @@ async def _handle_message(room: Room, player_name: str, msg: dict):
         player = room.human_players.get(player_name)
         if player:
             await player.vote_queue.put(msg.get("target"))
+
+
+def _release_disconnected_player(room: "Room", player_name: str):
+    """ゲーム中に切断された人間の待機フェーズ（夜・投票）を止めないよう、
+    デフォルト行動をキューに投入して進行を継続させる。"""
+    player = room.human_players.get(player_name)
+    if not player:
+        return
+    others = [p for p in (room.runner.state.player_ids if room.runner else [])
+              if p != player_name]
+    # 夜行動＝なし、投票＝ランダムな他プレイヤー（未行動なら消費され、行動済みなら無害）
+    try:
+        player.night_queue.put_nowait({"action": "none"})
+    except Exception:
+        pass
+    try:
+        player.vote_queue.put_nowait(random.choice(others) if others else player_name)
+    except Exception:
+        pass
 
 
 # ── ゲーム実行 ──────────────────────────────────────────────────────────────

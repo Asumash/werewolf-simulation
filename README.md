@@ -1,5 +1,7 @@
 # 人狼ゲーム — 人間・CPU・LLM が同じ卓で遊べるリアルタイム人狼
 
+[![CI](https://github.com/Asumash/werewolf-simulation/actions/workflows/ci.yml/badge.svg)](https://github.com/Asumash/werewolf-simulation/actions/workflows/ci.yml)
+
 > ブラウザ上で **人間・ルールベースAI・大規模言語モデル(LLM)** が入り混じって遊べる、
 > リアルタイム対戦型の人狼ゲーム。
 > 「AIは人狼をどこまで人間らしく遊べるか」を検証・比較することを目的に、
@@ -68,6 +70,14 @@ python server.py
 4. 処刑された中に人狼がいれば村人陣営の勝ち
 
 **役職構成（5人）**：人狼×2・占い師・怪盗・村人×3（＋墓地2枚）
+
+## ✅ テスト
+配札・夜行動・勝敗判定、推論エンジン(`BeliefState`)、発言タグ解析、対戦の完走を
+pytest で検証しています（GitHub Actions で自動実行）。
+```bash
+pip install -r requirements-dev.txt
+pytest -q
+```
 
 ## 📁 ディレクトリ構成
 ```

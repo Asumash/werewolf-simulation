@@ -61,7 +61,32 @@
       "Bash(python -c \"import engine.game_runner_async, players.rule_based, players.llm_player, server; print\\('imports OK, PACE=', engine.game_runner_async.PACE, 'default_sec=', __import__\\('inspect'\\).signature\\(engine.game_runner_async.AsyncGameRunner.__init__\\).parameters['discussion_seconds'].default\\)\")",
       "Bash(PYTHONIOENCODING=utf-8 python \"C:/Users/asuma/AppData/Local/Temp/claude/C--Users-asuma-Documents-werewolf/a6206d44-f21f-4581-be26-8ef089a0c414/scratchpad/test_async_llm.py\")",
       "Bash(PYTHONIOENCODING=utf-8 python -m dev.run_cp_only 1)",
-      "Bash(python -c \"import server; print\\('server import OK'\\)\")"
+      "Bash(python -c \"import server; print\\('server import OK'\\)\")",
+      "Bash(rm -f daifugou.py)",
+      "Bash(mv daifugou_kai.py daifugou.py)",
+      "Bash(rm -rf __pycache__)",
+      "Bash(python -c \"import daifugou; print\\('daifugou import OK'\\)\")",
+      "Bash(PYTHONIOENCODING=utf-8 python tests/test_rules.py)",
+      "Bash(PYTHONIOENCODING=utf-8 python tests/test_simulation.py)",
+      "Bash(git config *)",
+      "Bash(echo \"user.name: $\\(git config user.name\\)\")",
+      "Bash(echo \"user.email: $\\(git config user.email 2>/dev/null || echo '\\(未設定\\)'\\)\")",
+      "Bash(git init *)",
+      "Bash(git branch *)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m ' *)",
+      "Bash(rm -rf __pycache__ daifugou/__pycache__)",
+      "Bash(python -c \"import daifugou as d; print\\('OK:', d.Game, d.Card, d.RANK_BONUS[1], d.EVENT_BONUS['革命']\\)\")",
+      "Bash(rm -rf daifugou/__pycache__ tests/__pycache__)",
+      "Bash(PYTHONIOENCODING=utf-8 python _fp.py)",
+      "Bash(rm -f _fp.py _fp_baseline.txt)",
+      "Bash(rm -rf __pycache__ daifugou/__pycache__ tests/__pycache__)",
+      "Bash(python -c \"import daifugou; print\\('main:', callable\\(daifugou.main\\)\\)\")",
+      "Bash(rm -rf daifugou/__pycache__)",
+      "Bash(rm -rf daifugou/__pycache__ tests/__pycache__ __pycache__)",
+      "Bash(PYTHONIOENCODING=utf-8 python tests/test_ui_smoke.py)",
+      "Bash(python -c \"import players.rule_based, server; print\\('imports OK'\\)\")",
+      "Bash(python -c \"import pytest; print\\('pytest', pytest.__version__\\)\")"
     ]
   }
 }

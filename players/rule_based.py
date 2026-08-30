@@ -180,6 +180,20 @@ def _parse_accusations(state: GameState, target_pid: str) -> list[str]:
 # 疑いの重み（intent 別）
 _ACCUSE_WEIGHT = {"contradict": 0.20, "suspect": 0.15, "vote_suggest": 0.15}
 
+# BeliefState の重み（バランス調整用に外出し）
+W_SEER_WOLF = 0.25          # 占い「人狼」判定
+W_SEER_CLEAR = 0.25         # 占い「非人狼」判定
+W_SEER_MULTI = 0.15         # 占いCO複数（各人）
+W_SEER_CONFLICT = 0.5       # 占い結果の矛盾（各claimer）
+W_ROBBER_WOLF = 0.40        # 怪盗「人狼と交換」主張
+W_ROBBER_CLEAR = 0.10       # 怪盗「非人狼と交換」claimer
+W_ROBBER_SWAP_CLEAR = 0.20  # 怪盗の交換相手
+W_ROBBER_MULTI = 0.15       # 怪盗CO複数（各人）
+W_SILENCE0 = 0.35           # 投票時・無言ペナルティ
+W_SILENCE1 = 0.20           # 投票時・1回のみ
+W_FALSE_ACCUSE = 0.10       # ハッタリ矛盾指摘の扇動者ペナルティ
+W_VOUCH = 0.15              # 擁護（正の証拠）
+
 
 def _seer_claims_from_turn(turn, players: list[str]) -> list[tuple[str, str, str]]:
     """1つの Turn から占いCO (claimer, target, result) を抽出（複数可）。"""
@@ -333,15 +347,15 @@ class BeliefState:
         # 占い結果
         for _, target, result in self.seer_claims:
             if result == "人狼":
-                wolf_prob[target] = min(1.0, wolf_prob[target] + 0.25)
+                wolf_prob[target] = min(1.0, wolf_prob[target] + W_SEER_WOLF)
             else:
-                wolf_prob[target] = max(0.0, wolf_prob[target] - 0.25)
+                wolf_prob[target] = max(0.0, wolf_prob[target] - W_SEER_CLEAR)
 
         # 占いCO複数
         seer_claimants = list({c for c, _, _ in self.seer_claims})
         if len(seer_claimants) > 1:
             for c in seer_claimants:
-                wolf_prob[c] = min(1.0, wolf_prob[c] + 0.15)
+                wolf_prob[c] = min(1.0, wolf_prob[c] + W_SEER_MULTI)
 
         # 占い結果の矛盾
         target_results: dict[str, list[tuple[str, str]]] = {}
@@ -350,22 +364,22 @@ class BeliefState:
         for target, entries in target_results.items():
             if len({r for _, r in entries}) > 1:
                 for claimer, _ in entries:
-                    wolf_prob[claimer] = min(1.0, wolf_prob[claimer] + 0.5)
+                    wolf_prob[claimer] = min(1.0, wolf_prob[claimer] + W_SEER_CONFLICT)
 
         # 怪盗CO整合性
         for claimer, swap_target, new_role in self.robber_claims:
             if new_role == "人狼":
-                wolf_prob[claimer] = min(1.0, wolf_prob[claimer] + 0.4)
+                wolf_prob[claimer] = min(1.0, wolf_prob[claimer] + W_ROBBER_WOLF)
             else:
-                wolf_prob[claimer] = max(0.0, wolf_prob[claimer] - 0.1)
+                wolf_prob[claimer] = max(0.0, wolf_prob[claimer] - W_ROBBER_CLEAR)
                 if swap_target in wolf_prob:
-                    wolf_prob[swap_target] = max(0.0, wolf_prob[swap_target] - 0.2)
+                    wolf_prob[swap_target] = max(0.0, wolf_prob[swap_target] - W_ROBBER_SWAP_CLEAR)
 
         # 怪盗CO複数
         robber_claimants = list({c for c, _, _ in self.robber_claims})
         if len(robber_claimants) > 1:
             for c in robber_claimants:
-                wolf_prob[c] = min(1.0, wolf_prob[c] + 0.15)
+                wolf_prob[c] = min(1.0, wolf_prob[c] + W_ROBBER_MULTI)
 
         # 疑いの重み付け（発言順・信頼度の高い発言者ほど影響大）
         for accuser, weight, targets, basis, kind in self.accuse_events:
@@ -376,7 +390,7 @@ class BeliefState:
                     eff = weight  # 実在 → 通常どおり採用
                 else:
                     eff = 0.0     # ハッタリ → 無効化し、扇動した本人を疑う
-                    wolf_prob[accuser] = min(1.0, wolf_prob[accuser] + 0.10)
+                    wolf_prob[accuser] = min(1.0, wolf_prob[accuser] + W_FALSE_ACCUSE)
             else:
                 eff = weight
             for pid in targets:
@@ -387,7 +401,7 @@ class BeliefState:
         # 擁護（正の証拠）：信頼できる発言者の擁護ほど疑いを下げる
         for voucher, target in self.vouch_events:
             cred = 1.0 - wolf_prob.get(voucher, self.prior)
-            wolf_prob[target] = max(0.0, wolf_prob[target] - 0.15 * cred)
+            wolf_prob[target] = max(0.0, wolf_prob[target] - W_VOUCH * cred)
 
         # 発言数ペナルティ
         for pid in self.players:
@@ -395,9 +409,9 @@ class BeliefState:
                 continue
             cnt = self.statement_counts.get(pid, 0)
             if is_voting and cnt == 0:
-                wolf_prob[pid] = min(1.0, wolf_prob[pid] + 0.35)
+                wolf_prob[pid] = min(1.0, wolf_prob[pid] + W_SILENCE0)
             elif is_voting and cnt == 1:
-                wolf_prob[pid] = min(1.0, wolf_prob[pid] + 0.20)
+                wolf_prob[pid] = min(1.0, wolf_prob[pid] + W_SILENCE1)
             if cnt >= 1:
                 wolf_prob[pid] = min(1.0, wolf_prob[pid] + 0.005 * cnt * (cnt + 1) / 2)
 
