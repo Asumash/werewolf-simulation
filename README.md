@@ -7,8 +7,6 @@
 > 「AIは人狼をどこまで人間らしく遊べるか」を検証・比較することを目的に、
 > 企画・設計・実装をすべて個人で開発しました。
 
-<!-- ここにゲーム画面のスクリーンショット/GIF を貼る -->
-<!-- 例: ![screenshot](docs/screenshot-game.png) -->
 
 ---
 
@@ -86,15 +84,14 @@ players/      プレイヤー実装（ルールベースCP・人間・LLM）
 prompts/      LLM用プロンプト
 recorder/     対戦ログ記録
 web/static/   フロントエンド（チャットUI）
+tests/        pytest テスト
 dev/          開発・分析用スクリプト
 server.py     Webサーバ（エントリポイント）
 smoke_llm.py  LLM疎通テスト
 ```
 
 ## 📝 設計ドキュメント
-- [GAME_SPEC.md](GAME_SPEC.md) … ゲーム仕様・ルール・数値設計
-- [CPU_BEHAVIOR.md](CPU_BEHAVIOR.md) … AI（ルールベース）の意思決定の詳細と改善履歴
-- [GAME_SPEC_EN.md](GAME_SPEC_EN.md) … 英語版仕様
+- [CPU_BEHAVIOR.md](CPU_BEHAVIOR.md) … AI（ルールベース）の意思決定の詳細と設計の考え方
 
 ## 💡 技術的に工夫した点
 - **リアルタイム会話の実現**：固定ターン制をやめ、各AIが「話したい度」を随時
