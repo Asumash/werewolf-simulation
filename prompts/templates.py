@@ -44,11 +44,48 @@ def _log_text(state: GameState, player_id: str) -> str:
     ) or "  （まだ発言なし）"
 
 
+def _co_directive(player_id: str, state: GameState) -> str:
+    """情報役職（占い師・怪盗）でまだCOしていない場合、実際の夜情報つきで
+    『今この発言で必ずCOせよ』という最優先指示を返す。"""
+    role = state.original_role_map[player_id]
+    kn = state.knowledge.get(player_id, {})
+    already = any(
+        t.player_id == player_id
+        and getattr(t, "intent", "") in ("seer_result", "robber_result")
+        for t in state.discussion_log
+    )
+    if already:
+        return ""
+    if role == Role.SEER:
+        if "saw_player" in kn:
+            tgt, r = list(kn["saw_player"].items())[0]
+            res = "人狼" if r == "人狼" else "村人陣営"
+            return ("★最優先の指示：あなたは占い師で、まだ占い結果をCOしていません。"
+                    f"今この発言で必ずCOしてください（疑いや質問より優先）。"
+                    f"例)「占い師です。{tgt}さんを占ったら{r}でした」。"
+                    f'タグは intent="seer_result", target="{tgt}", result="{res}" にすること。')
+        if "saw_graveyard" in kn:
+            return ("★最優先の指示：あなたは占い師で墓地を見ました"
+                    f"（{kn['saw_graveyard']}）。今この発言でCOしてください。"
+                    'タグは intent="seer_result"。')
+    if role == Role.ROBBER and "swapped_with" in kn:
+        new_role = kn.get("new_role")
+        if new_role and new_role != "人狼":
+            sw = kn["swapped_with"]
+            return ("★最優先の指示：あなたは怪盗で、まだ交換結果をCOしていません。"
+                    f"今この発言で必ずCOしてください。"
+                    f"例)「怪盗です。{sw}と交換して、今は{new_role}です」。"
+                    f'タグは intent="robber_result", target="{sw}", result="{new_role}" にすること。')
+    return ""
+
+
 def build_statement_prompt(player_id: str, state: GameState,
                            hint: str = "", style: str = "") -> str:
     others = [p for p in state.player_ids if p != player_id]
     hint_line = f"\n【状況】{hint}\n" if hint else ""
     style_line = f"- あなたの口調: {style}\n" if style else ""
+    co = _co_directive(player_id, state)
+    co_block = f"\n{co}\n" if co else ""
     return f"""{_RULES}
 
 あなたはプレイヤー「{player_id}」。他プレイヤー: {others}
@@ -56,14 +93,14 @@ def build_statement_prompt(player_id: str, state: GameState,
 
 【これまでの議論】
 {_log_text(state, player_id)}
-{hint_line}
+{hint_line}{co_block}
 いま議論で発言します。1つだけ短く発言し、その「行動タグ」も付けてください。
 
 【話し方（重要）】オンラインで人狼を遊ぶ普通のプレイヤーになりきってください。
 - **短く**（1〜2文、目安15〜50字）。長い説明・丁寧すぎる敬語・毎回理由を述べるのは禁止。
 - 崩した口語でOK（「〜だと思う」「〜じゃない?」「うーん」等）。言い切ってもよい。
 - AIっぽく完璧に整理しない。時々ラフでよいし、質問攻め・長い矛盾指摘は避ける。
-- 情報役職（占い師・怪盗）なら結果は早めに、ただし短くCOする。
+- **情報役職（占い師・怪盗）は、結果を隠さず早い段階で必ずCOすること（最重要）。**
 {style_line}
 行動タグ intent は次から1つ:
 - "seer_result"  : 占い結果をCO（target=占った相手, result="人狼"または"村人陣営"）
