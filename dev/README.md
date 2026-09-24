@@ -9,6 +9,7 @@
 ```bash
 python -m dev.batch_run --games 200            # 全CPUで200戦（記録＋勝率集計）
 python -m dev.batch_run --games 50 --llm 1     # 1席をLLMに（要APIキー）
+python -m dev.batch_run --games 30 --llm 2 --models "openai/gpt-4o-mini,openai/gpt-3.5-turbo"  # モデル比較
 python -m dev.analyze_games                    # data/ の評価指標を集計（現行schema≥2のみ）
 python -m dev.analyze_games --all              # 旧データも含めて集計
 ```

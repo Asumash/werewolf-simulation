@@ -73,6 +73,7 @@ def main():
 
     role_win = defaultdict(lambda: [0, 0])           # 配布役職 -> [win, total]
     side = defaultdict(lambda: [0, 0])               # key -> [win, total]
+    role_side = defaultdict(lambda: [0, 0])          # (key, 配布役職) -> [win, total]
     vote_acc = defaultdict(lambda: [0, 0])           # key -> [correct, total]（村側投票）
     co = defaultdict(lambda: [0, 0])                 # key -> [co, info役職数]
     stmts_per = defaultdict(lambda: [0, 0])          # key -> [発言数, 人数]
@@ -115,6 +116,9 @@ def main():
             for k in keys_of(pid):
                 side[k][0] += win
                 side[k][1] += 1
+                if orig:
+                    role_side[(k, orig)][0] += win
+                    role_side[(k, orig)][1] += 1
                 stmts_per[k][0] += len(mystmts)
                 stmts_per[k][1] += 1
                 for s in mystmts:
@@ -160,6 +164,24 @@ def main():
 
     dump("type", "プレイヤー種別ごとの指標")
     dump("model", "LLMモデルごとの指標（モデル比較）")
+
+    def dump_roles(kind, title):
+        rows = sorted(k for k in side if k[0] == kind)
+        if not rows:
+            return
+        roles = ("占い師", "怪盗", "村人", "人狼")
+        print(f"【{title}】")
+        print("  " + " " * 14 + "".join(f"{r:>12s}" for r in roles))
+        for k in rows:
+            cells = []
+            for r in roles:
+                w, n = role_side.get((k, r), [0, 0])
+                cells.append(f"{w / n * 100:.0f}%({n})" if n else "-")
+            print(f"  {k[1]:14s}" + "".join(f"{c:>12s}" for c in cells))
+        print()
+
+    dump_roles("type", "種別×配布役職ごとの自陣営勝率（弱点の切り分け）")
+    dump_roles("model", "モデル×配布役職ごとの自陣営勝率")
 
     print("【intent（行動）分布：種別ごと・上位】")
     for k in sorted(k for k in intents if k[0] == "type"):

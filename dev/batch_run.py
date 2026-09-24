@@ -39,11 +39,14 @@ ROLE_LIST = [
 VILLAGE = {Role.VILLAGER, Role.SEER, Role.ROBBER}
 
 
-def build_players(n_llm: int, model: str):
+def build_players(n_llm: int, models: list[str]):
+    """先頭 n_llm 席を LLM に。models のモデルを席ごとに循環割り当て
+    （モデル比較用）。models が1つなら全LLM席が同一モデル。"""
     players = []
     li = ci = 0
     for i in range(5):
         if i < n_llm:
+            model = models[li % len(models)]
             li += 1
             players.append(LLMPlayer(f"LLM-{li}", model=model))
         else:
@@ -57,11 +60,14 @@ def main():
     ap.add_argument("--games", type=int, default=20, help="対戦数")
     ap.add_argument("--llm", type=int, default=0, help="LLM席の数（0〜5）")
     ap.add_argument("--model", default=os.environ.get("OPENROUTER_MODEL", "openai/gpt-4o-mini"))
+    ap.add_argument("--models", default="",
+                    help="モデル比較用。カンマ区切りで席ごとに割当（例: a,b）。指定時は --model より優先")
     ap.add_argument("--statements", type=int, default=15, help="1ゲームの総発言数")
     ap.add_argument("--out", default="data/", help="記録の出力先")
     args = ap.parse_args()
 
     n_llm = max(0, min(5, args.llm))
+    models = [m.strip() for m in args.models.split(",") if m.strip()] or [args.model]
     if n_llm > 0 and not os.environ.get("OPENROUTER_API_KEY"):
         print("✗ LLM席を使うには OPENROUTER_API_KEY が必要です（.env に設定）。")
         sys.exit(1)
@@ -76,7 +82,7 @@ def main():
     llm_errors = 0
 
     for g in range(args.games):
-        players = build_players(n_llm, args.model)
+        players = build_players(n_llm, models)
         ids = [p.player_id for p in players]
         state = GameState(player_ids=ids)
         state.setup(ROLE_LIST)
@@ -98,7 +104,7 @@ def main():
             print(f"  ... {g + 1}/{args.games}")
 
     print("\n=== 集計 ===")
-    comp = f"LLM×{n_llm} + CPU×{5 - n_llm}" + (f" / model={args.model}" if n_llm else "")
+    comp = f"LLM×{n_llm} + CPU×{5 - n_llm}" + (f" / models={models}" if n_llm else "")
     print(f"構成: {comp}　対戦数: {args.games}")
     print(f"村人陣営 勝率: {village_win / args.games * 100:.1f}%")
     print("プレイヤー種別ごとの『自陣営が勝った割合』:")
