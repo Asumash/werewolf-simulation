@@ -94,6 +94,7 @@ smoke_llm.py  LLM疎通テスト
 
 ## 📝 設計ドキュメント
 - [CPU_BEHAVIOR.md](CPU_BEHAVIOR.md) … AI（ルールベース）の意思決定の詳細と設計の考え方
+- [RESULTS.md](RESULTS.md) … 実験結果・研究の現状（LLM の振る舞いと介入の効果）
 
 ## 💡 技術的に工夫した点
 - **リアルタイム会話の実現**：固定ターン制をやめ、各AIが「話したい度」を随時
