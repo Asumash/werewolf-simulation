@@ -79,12 +79,28 @@ def _co_directive(player_id: str, state: GameState) -> str:
     return ""
 
 
+def _wolf_directive(player_id: str, state: GameState) -> str:
+    """人狼陣営として振る舞う場合の立ち回り指示を返す。"""
+    kn = state.knowledge.get(player_id, {})
+    is_wolf = (kn.get("new_role") == "人狼"
+               or state.original_role_map[player_id] == Role.WEREWOLF)
+    if not is_wolf:
+        return ""
+    return ("★あなたは人狼陣営です。勝つための立ち回り（自然な口調のまま実行）：\n"
+            "  ①正体は絶対に明かさない（自分が人狼だとは言わない）。村人のふりをする。\n"
+            "  ②仲間の人狼は疑わず守る。仲間が疑われたら、別の村人に疑いを向ける。\n"
+            "  ③有効なら占い師や怪盗を騙り、偽の結果で本物の情報役職を潰す"
+            "（例)「占い師です。〇〇さんを占ったら人狼でした」。タグは intent=\"seer_result\" 等で偽装）。\n"
+            "  ④誰か村人を疑って、村人陣営の票を割る・内輪もめに誘導する。")
+
+
 def build_statement_prompt(player_id: str, state: GameState,
                            hint: str = "", style: str = "") -> str:
     others = [p for p in state.player_ids if p != player_id]
     hint_line = f"\n【状況】{hint}\n" if hint else ""
     style_line = f"- あなたの口調: {style}\n" if style else ""
-    co = _co_directive(player_id, state)
+    # 情報役職には結果CO指示、人狼には立ち回り指示（両立しない）
+    co = _co_directive(player_id, state) or _wolf_directive(player_id, state)
     co_block = f"\n{co}\n" if co else ""
     return f"""{_RULES}
 
