@@ -21,6 +21,7 @@ class AsyncGameRunner:
         broadcast: Callable[[dict], Awaitable[None]],
         send_private: Callable[[str, dict], Awaitable[None]],
         discussion_seconds: int = 180,
+        record: bool = True,
     ):
         self.state = state
         self.players = {p.player_id: p for p in players}
@@ -28,6 +29,11 @@ class AsyncGameRunner:
         self.send_private = send_private
         self.discussion_seconds = discussion_seconds
         self.discussion_active = False
+        # 対戦ログの記録（研究データ用）。web/LLM 対戦もここで保存される。
+        self.recorder = None
+        if record:
+            from recorder.recorder import GameRecorder
+            self.recorder = GameRecorder()
         # リアルタイム発話スケジューリング用（モノトニック時刻）
         self._last_msg_time: float = 0.0        # 直近に誰かが発言した時刻
         self._last_spoke: dict[str, float] = {}  # CPUごとの直近発言時刻
@@ -51,7 +57,14 @@ class AsyncGameRunner:
         await self.broadcast({"type": "phase", "phase": "vote"})
         await self._vote_phase()
 
-        return self.state.judge_result()
+        result = self.state.judge_result()
+        # 対戦ログを保存（失敗してもゲーム進行は妨げない）
+        if self.recorder is not None:
+            try:
+                self.recorder.save(self.state, result, self.players)
+            except Exception as e:
+                print(f"[Runner] ログ保存に失敗: {e}")
+        return result
 
     # ── 夜フェーズ ───────────────────────────────────────────────────────
 

@@ -24,7 +24,7 @@ class GameRunner:
         self._discussion_phase()
         self._vote_phase()
         result = self.state.judge_result()
-        self.recorder.save(self.state, result)
+        self.recorder.save(self.state, result, self.players)
         return result
 
     def _night_phase(self):
