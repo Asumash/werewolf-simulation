@@ -39,20 +39,40 @@ ROLE_LIST = [
 VILLAGE = {Role.VILLAGER, Role.SEER, Role.ROBBER}
 
 
-def build_players(n_llm: int, models: list[str]):
+def build_players(n_llm: int, models: list[str], few_shot: list[str] | None = None):
     """先頭 n_llm 席を LLM に。models のモデルを席ごとに循環割り当て
-    （モデル比較用）。models が1つなら全LLM席が同一モデル。"""
+    （モデル比較用）。models が1つなら全LLM席が同一モデル。
+    few_shot を渡すと LLM の口調模倣用の人間発言例として注入する。"""
     players = []
     li = ci = 0
     for i in range(5):
         if i < n_llm:
             model = models[li % len(models)]
             li += 1
-            players.append(LLMPlayer(f"LLM-{li}", model=model))
+            players.append(LLMPlayer(f"LLM-{li}", model=model, few_shot=few_shot))
         else:
             ci += 1
             players.append(RuleBasedCP(f"CPU-{ci}"))
     return players
+
+
+def _load_fewshot(path: str) -> list[str]:
+    """few-shot バンク(JSON)から発言テキストのリストを読み込む。"""
+    import json
+    if not path:
+        return []
+    try:
+        data = json.load(open(path, encoding="utf-8"))
+    except Exception as e:
+        print(f"few-shot の読み込みに失敗: {e}")
+        return []
+    out = []
+    for item in data:
+        if isinstance(item, str):
+            out.append(item)
+        elif isinstance(item, dict) and item.get("statement"):
+            out.append(item["statement"])
+    return out
 
 
 def main():
@@ -64,10 +84,15 @@ def main():
                     help="モデル比較用。カンマ区切りで席ごとに割当（例: a,b）。指定時は --model より優先")
     ap.add_argument("--statements", type=int, default=15, help="1ゲームの総発言数")
     ap.add_argument("--out", default="data/", help="記録の出力先")
+    ap.add_argument("--fewshot", default="",
+                    help="few-shotバンク(JSON)のパス。LLMに人間の発言例を注入する")
     args = ap.parse_args()
 
     n_llm = max(0, min(5, args.llm))
     models = [m.strip() for m in args.models.split(",") if m.strip()] or [args.model]
+    few_shot = _load_fewshot(args.fewshot)
+    if few_shot:
+        print(f"few-shot例を {len(few_shot)} 件 注入します。\n")
     if n_llm > 0 and not os.environ.get("OPENROUTER_API_KEY"):
         print("✗ LLM席を使うには OPENROUTER_API_KEY が必要です（.env に設定）。")
         sys.exit(1)
@@ -82,7 +107,7 @@ def main():
     llm_errors = 0
 
     for g in range(args.games):
-        players = build_players(n_llm, models)
+        players = build_players(n_llm, models, few_shot=few_shot)
         ids = [p.player_id for p in players]
         state = GameState(player_ids=ids)
         state.setup(ROLE_LIST)

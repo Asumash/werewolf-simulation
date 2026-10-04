@@ -1,3 +1,4 @@
+from __future__ import annotations
 from engine.game_state import GameState, Role
 
 # ルール要約（全プロンプト共通）
@@ -95,10 +96,16 @@ def _wolf_directive(player_id: str, state: GameState) -> str:
 
 
 def build_statement_prompt(player_id: str, state: GameState,
-                           hint: str = "", style: str = "") -> str:
+                           hint: str = "", style: str = "",
+                           examples: list[str] | None = None) -> str:
     others = [p for p in state.player_ids if p != player_id]
     hint_line = f"\n【状況】{hint}\n" if hint else ""
     style_line = f"- あなたの口調: {style}\n" if style else ""
+    # few-shot: 人間プレイヤーの発言例（口調の模倣用）
+    ex_block = ""
+    if examples:
+        ex = "\n".join(f"  ・{e}" for e in examples[:6])
+        ex_block = f"\n【人間プレイヤーの発言例（口調の参考。内容はコピーしない）】\n{ex}\n"
     # 情報役職には結果CO指示、人狼には立ち回り指示（両立しない）
     co = _co_directive(player_id, state) or _wolf_directive(player_id, state)
     co_block = f"\n{co}\n" if co else ""
@@ -117,7 +124,7 @@ def build_statement_prompt(player_id: str, state: GameState,
 - 崩した口語でOK（「〜だと思う」「〜じゃない?」「うーん」等）。言い切ってもよい。
 - AIっぽく完璧に整理しない。時々ラフでよいし、質問攻め・長い矛盾指摘は避ける。
 - **情報役職（占い師・怪盗）は、結果を隠さず早い段階で必ずCOすること（最重要）。**
-{style_line}
+{style_line}{ex_block}
 行動タグ intent は次から1つ:
 - "seer_result"  : 占い結果をCO（target=占った相手, result="人狼"または"村人陣営"）
 - "robber_result": 怪盗の交換結果をCO（target=交換相手, result=交換後の役職）

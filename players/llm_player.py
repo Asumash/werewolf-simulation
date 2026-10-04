@@ -57,8 +57,11 @@ class LLMPlayer(PlayerInterface):
         api_key_env: str = "OPENROUTER_API_KEY",
         temperature: float = 0.7,
         timeout: float = 30.0,
+        few_shot: list[str] | None = None,
     ):
         super().__init__(player_id)
+        # 人間の発言例（few-shot）。口調の模倣に使う。
+        self.few_shot = few_shot or None
         self.base_url = (base_url or os.environ.get("OPENROUTER_BASE_URL")
                          or self.DEFAULT_BASE_URL).rstrip("/")
         self.model = (model or os.environ.get("OPENROUTER_MODEL")
@@ -160,7 +163,8 @@ class LLMPlayer(PlayerInterface):
 
     def make_statement(self, state: GameState) -> tuple[str, str]:
         try:
-            data = self._call_json(build_statement_prompt(self.player_id, state))
+            data = self._call_json(
+                build_statement_prompt(self.player_id, state, examples=self.few_shot))
         except Exception as e:
             self.errors.append(f"statement: {e}")
             return "少し様子を見ます。", "API失敗のためフォールバック"
@@ -288,7 +292,7 @@ class AsyncLLMPlayer(LLMPlayer):
         try:
             data = await self._call_json_async(
                 build_statement_prompt(self.player_id, state, hint=hint,
-                                       style=self.style)
+                                       style=self.style, examples=self.few_shot)
             )
         except Exception as e:
             self.errors.append(f"statement: {e}")
