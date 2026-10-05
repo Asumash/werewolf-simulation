@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/Asumash/werewolf-simulation/actions/workflows/ci.yml/badge.svg)](https://github.com/Asumash/werewolf-simulation/actions/workflows/ci.yml)
 
+📖 **English**: [README.en.md](README.en.md)
+
 > ブラウザ上で **人間・ルールベースAI・大規模言語モデル(LLM)** が入り混じって遊べる、
 > リアルタイム対戦型の人狼ゲーム。「LLM が会話を伴う非完全情報ゲームをどうプレイするか」を
 > 観察・比較するための研究基盤として、企画・設計・実装を個人で開発。
