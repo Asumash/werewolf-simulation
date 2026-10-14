@@ -35,6 +35,7 @@ class Room:
         self.code = code
         self.host = host
         self.connections: dict[str, WebSocket] = {}
+        self.spectators: dict[str, WebSocket] = {}  # 観戦者（ゲームに参加しない）
         self.human_players: dict[str, HumanWSPlayer] = {}
         self.runner: AsyncGameRunner | None = None
         self.started = False
@@ -50,6 +51,19 @@ class Room:
                 dead.append(name)
         for name in dead:
             self.connections.pop(name, None)
+        # 観戦者にも同じメッセージを送る（役職情報は含まない公開情報のみ）
+        PUBLIC_TYPES = {"player_joined", "player_left", "lobby_config", "system",
+                        "game_starting", "phase", "statement", "typing",
+                        "vote_cast", "game_over"}
+        if msg.get("type") in PUBLIC_TYPES:
+            spec_dead: list[str] = []
+            for name, ws in self.spectators.items():
+                try:
+                    await ws.send_text(data)
+                except Exception:
+                    spec_dead.append(name)
+            for name in spec_dead:
+                self.spectators.pop(name, None)
 
     async def send_private(self, player_id: str, msg: dict):
         ws = self.connections.get(player_id)
@@ -82,6 +96,77 @@ async def create_room(host: str):
     return {"code": code}
 
 
+async def _broadcast_postgame_lobby(room: "Room"):
+    """ゲーム終了後・役割切替後にロビー状態を全員に通知する。"""
+    await room.broadcast({
+        "type": "post_game_lobby",
+        "players": room.player_list(),
+        "spectators": list(room.spectators.keys()),
+        "host": room.host,
+    })
+
+
+@app.websocket("/ws/spectate/{room_code}/{spectator_name}")
+async def ws_spectate(ws: WebSocket, room_code: str, spectator_name: str):
+    await ws.accept()
+    if room_code not in rooms:
+        await ws.send_text(json.dumps({"type": "error", "message": "ルームが存在しません"}))
+        await ws.close()
+        return
+    room = rooms[room_code]
+
+    room.spectators[spectator_name] = ws
+    await ws.send_text(json.dumps({
+        "type": "spectate_joined",
+        "players": room.player_list(),
+        "spectators": list(room.spectators.keys()),
+        "started": room.started,
+    }, ensure_ascii=False))
+    await room.broadcast({"type": "system", "message": f"{spectator_name} が観戦しています"})
+    await _broadcast_postgame_lobby(room)
+
+    role = "spectator"
+    try:
+        while True:
+            raw = await ws.receive_text()
+            msg = json.loads(raw)
+            mtype = msg.get("type")
+
+            if mtype == "request_join" and role == "spectator" and not room.started:
+                if len(room.connections) >= 5:
+                    await ws.send_text(json.dumps({"type": "error", "message": "満員です（最大5人）"}, ensure_ascii=False))
+                    continue
+                room.spectators.pop(spectator_name, None)
+                room.connections[spectator_name] = ws
+                role = "player"
+                await room.broadcast({"type": "player_joined", "name": spectator_name, "players": room.player_list(), "host": room.host})
+                await ws.send_text(json.dumps({"type": "role_changed", "new_role": "player"}, ensure_ascii=False))
+                await _broadcast_postgame_lobby(room)
+
+            elif mtype == "request_spectate" and role == "player" and not room.started:
+                room.connections.pop(spectator_name, None)
+                room.spectators[spectator_name] = ws
+                role = "spectator"
+                await room.broadcast({"type": "player_left", "name": spectator_name, "players": room.player_list(), "host": room.host})
+                await ws.send_text(json.dumps({"type": "role_changed", "new_role": "spectator"}, ensure_ascii=False))
+                await _broadcast_postgame_lobby(room)
+
+            elif role == "player":
+                await _handle_message(room, spectator_name, msg)
+
+    except WebSocketDisconnect:
+        if role == "player":
+            room.connections.pop(spectator_name, None)
+            if room.started:
+                _release_disconnected_player(room, spectator_name)
+                await room.broadcast({"type": "system", "message": f"{spectator_name} が切断しました（以降は自動進行）"})
+            else:
+                await room.broadcast({"type": "player_left", "name": spectator_name, "players": room.player_list(), "host": room.host})
+                await _broadcast_postgame_lobby(room)
+        else:
+            room.spectators.pop(spectator_name, None)
+
+
 @app.websocket("/ws/{room_code}/{player_name}")
 async def ws_endpoint(ws: WebSocket, room_code: str, player_name: str):
     await ws.accept()
@@ -111,28 +196,54 @@ async def ws_endpoint(ws: WebSocket, room_code: str, player_name: str):
         "host": room.host,
     })
 
+    role = "player"
     try:
         while True:
             raw = await ws.receive_text()
             msg = json.loads(raw)
-            await _handle_message(room, player_name, msg)
+            mtype = msg.get("type")
+
+            if mtype == "request_spectate" and role == "player" and not room.started:
+                room.connections.pop(player_name, None)
+                room.spectators[player_name] = ws
+                role = "spectator"
+                await room.broadcast({"type": "player_left", "name": player_name, "players": room.player_list(), "host": room.host})
+                await ws.send_text(json.dumps({"type": "role_changed", "new_role": "spectator"}, ensure_ascii=False))
+                await _broadcast_postgame_lobby(room)
+
+            elif mtype == "request_join" and role == "spectator" and not room.started:
+                if len(room.connections) >= 5:
+                    await ws.send_text(json.dumps({"type": "error", "message": "満員です（最大5人）"}, ensure_ascii=False))
+                    continue
+                room.spectators.pop(player_name, None)
+                room.connections[player_name] = ws
+                role = "player"
+                await room.broadcast({"type": "player_joined", "name": player_name, "players": room.player_list(), "host": room.host})
+                await ws.send_text(json.dumps({"type": "role_changed", "new_role": "player"}, ensure_ascii=False))
+                await _broadcast_postgame_lobby(room)
+
+            elif role == "player":
+                await _handle_message(room, player_name, msg)
+
     except WebSocketDisconnect:
-        room.connections.pop(player_name, None)
-        if room.started:
-            # ゲーム中に切断された場合、待機中のフェーズ（夜・投票）が止まらないよう
-            # デフォルト行動を投入して進行を継続させる。
-            _release_disconnected_player(room, player_name)
-            await room.broadcast({
-                "type": "system",
-                "message": f"{player_name} が切断しました（以降は自動進行）",
-            })
+        if role == "player":
+            room.connections.pop(player_name, None)
+            if room.started:
+                _release_disconnected_player(room, player_name)
+                await room.broadcast({
+                    "type": "system",
+                    "message": f"{player_name} が切断しました（以降は自動進行）",
+                })
+            else:
+                await room.broadcast({
+                    "type": "player_left",
+                    "name": player_name,
+                    "players": room.player_list(),
+                    "host": room.host,
+                })
+                await _broadcast_postgame_lobby(room)
         else:
-            await room.broadcast({
-                "type": "player_left",
-                "name": player_name,
-                "players": room.player_list(),
-                "host": room.host,
-            })
+            room.spectators.pop(player_name, None)
         if not room.connections and not room.started:
             rooms.pop(room_code, None)
 
@@ -174,14 +285,20 @@ async def _handle_message(room: Room, player_name: str, msg: dict):
                 return
             intent = msg.get("intent", "none") or "none"
             target = msg.get("target", "") or ""
+            # target が配列で来た場合（複数選択）は "・" 区切りの文字列に変換
+            if isinstance(target, list):
+                target = "・".join(target)
             result = msg.get("result", "") or ""
             basis = msg.get("basis", []) or []
             if not isinstance(basis, list):
                 basis = []
+            reply_to = msg.get("reply_to") or None
+            if reply_to and not isinstance(reply_to, dict):
+                reply_to = None
             # ランナー経由で追加（CPUの反応・沈黙判定の基準時刻も更新される）
             await room.runner.submit_human_statement(
                 player_name, text, intent=intent, target=target,
-                result=result, basis=basis,
+                result=result, basis=basis, reply_to=reply_to,
             )
 
     elif mtype == "vote":
@@ -227,8 +344,13 @@ async def _run_game(room: Room):
             "message": "OPENROUTER_API_KEY が未設定のため、LLMをCPUに置き換えました。",
         })
         llm_n = 0
-    llm_ids = [f"LLM-{i + 1}" for i in range(llm_n)]
-    cpu_ids = [f"CPU-{i + 1}" for i in range(ai_slots - llm_n)]
+    _LLM_NAMES = ["Aria", "Kai", "Sora", "Mio", "Ren"]
+    _CPU_NAMES = ["Hana", "Riku", "Yui", "Tomo", "Nao", "Jun", "Aoi", "Kei"]
+    llm_ids = [_LLM_NAMES[i % len(_LLM_NAMES)] for i in range(llm_n)]
+    # 人間・LLM と被らない名前を CPU に割り当てる
+    used = set(human_ids) | set(llm_ids)
+    _cpu_pool = [n for n in _CPU_NAMES if n not in used]
+    cpu_ids = [_cpu_pool[i % len(_cpu_pool)] for i in range(ai_slots - llm_n)]
     all_ids = (human_ids + llm_ids + cpu_ids)[:5]
 
     players = []
@@ -244,7 +366,18 @@ async def _run_game(room: Room):
         players.append(p)
 
     state = GameState(player_ids=all_ids)
-    state.setup(ROLE_LIST)
+    # プレイヤー全員が村人陣営になるケースを排除（人狼が墓地に2枚入った場合）
+    for _ in range(100):
+        state.setup(ROLE_LIST)
+        if any(r == Role.WEREWOLF for r in state.role_map.values()):
+            break
+    else:
+        # 理論上あり得ないが念のため
+        await room.broadcast({"type": "system", "message": "役職配布に失敗しました。もう一度お試しください。"})
+        room.started = False
+        room.human_players = {}
+        await _broadcast_postgame_lobby(room)
+        return
 
     for pid in human_ids:
         if pid in all_ids:
@@ -275,6 +408,7 @@ async def _run_game(room: Room):
 
     room.started = False
     room.human_players = {}
+    await _broadcast_postgame_lobby(room)
 
 
 if __name__ == "__main__":

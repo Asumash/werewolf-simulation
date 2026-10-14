@@ -280,6 +280,7 @@ class AsyncGameRunner:
         self, pid: str, statement: str, reasoning: str, is_cpu: bool,
         intent: str | None = None, target: str = "", result: str = "",
         basis: list[str] | None = None, source: str = "cpu",
+        reply_to: dict | None = None,
     ):
         """発言を GameState に追加し、タイミング情報を更新してブロードキャストする。
 
@@ -307,7 +308,7 @@ class AsyncGameRunner:
         if is_cpu:
             self._last_spoke[pid] = now
 
-        await self.broadcast({
+        bcast: dict = {
             "type": "statement",
             "player": pid,
             "text": statement,
@@ -317,16 +318,21 @@ class AsyncGameRunner:
             "basis": basis,
             "is_cpu": is_cpu,
             "source": source,
-        })
+        }
+        if reply_to:
+            bcast["reply_to"] = reply_to
+        await self.broadcast(bcast)
 
     async def submit_human_statement(
         self, pid: str, text: str, intent: str = "none",
         target: str = "", result: str = "", basis: list[str] | None = None,
+        reply_to: dict | None = None,
     ):
         """人間の発言を受け取り、CPUと同じ経路で処理する。"""
         await self._emit_statement(
             pid, text, "", is_cpu=False, source="human",
             intent=intent, target=target, result=result, basis=basis or [],
+            reply_to=reply_to,
         )
 
     def _detect_lie(self, pid: str, statement: str) -> bool:

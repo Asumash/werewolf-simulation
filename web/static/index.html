@@ -86,6 +86,12 @@
   /* 知識テキスト */
   .knowledge-text { font-size: 0.82rem; line-height: 1.6; color: var(--text); }
 
+  /* プレイヤーカラー（最大8人分） */
+  :root {
+    --pc0: #e94560; --pc1: #4a9eff; --pc2: #4caf50; --pc3: #ffcc44;
+    --pc4: #cc88ff; --pc5: #ff8844; --pc6: #44ddcc; --pc7: #ff88aa;
+  }
+
   /* プレイヤーチップ */
   .player-chip {
     display: flex;
@@ -351,6 +357,48 @@
   .result-table td { padding: 7px 6px; border-bottom: 1px solid var(--border); }
   .executed-mark { color: var(--accent); font-size: 0.8rem; margin-left: 4px; }
   .hidden { display: none !important; }
+
+  /* 名前挿入バー */
+  #name-bar {
+    display: flex; flex-wrap: wrap; gap: 4px;
+    padding: 4px 8px; border-top: 1px solid var(--border);
+  }
+  #name-bar.hidden { display: none !important; }
+  .name-btn {
+    padding: 2px 10px; border-radius: 12px; border: 1.5px solid currentColor;
+    background: transparent; cursor: pointer; font-size: 0.75rem;
+    font-weight: 600; font-family: inherit; opacity: 0.85;
+    transition: opacity .12s, background .12s;
+  }
+  .name-btn:hover { opacity: 1; background: rgba(255,255,255,.07); }
+
+  /* リプライ */
+  .reply-preview {
+    background: var(--card2); border-left: 3px solid var(--accent);
+    border-radius: 4px; padding: 4px 10px; margin: 4px 8px;
+    font-size: 0.78rem; color: var(--muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .reply-preview .rp-close {
+    margin-left: auto; cursor: pointer; color: var(--accent); font-size: 1rem;
+  }
+  .reply-quote {
+    background: var(--card2); border-left: 3px solid var(--muted);
+    border-radius: 4px; padding: 2px 8px; margin-bottom: 4px;
+    font-size: 0.75rem; color: var(--muted);
+  }
+  .msg .reply-btn {
+    display: none; background: none; border: none;
+    color: var(--muted); cursor: pointer; font-size: 0.8rem; padding: 0 4px;
+  }
+  .msg:hover .reply-btn { display: inline; }
+
+  /* 観戦バッジ */
+  .spectator-badge {
+    display: inline-block; background: #2a1a3a; color: #cc88ff;
+    border: 1px solid #aa66dd; border-radius: 12px;
+    padding: 2px 10px; font-size: 0.75rem; margin-left: 8px;
+  }
 </style>
 </head>
 <body>
@@ -368,6 +416,7 @@
       <input type="text" id="input-code" placeholder="例: AB12" maxlength="4" style="text-transform:uppercase">
     </div>
     <button class="btn btn-primary" onclick="joinRoom()">参加 / 作成</button>
+    <button class="btn" style="margin-top:8px;background:var(--card2);color:var(--text);border:1px solid var(--border)" onclick="spectateRoom()">👁 観戦する</button>
     <button class="btn" style="margin-top:8px;background:var(--card2);color:var(--text);border:1px solid var(--border)" onclick="openRules()">📖 ルールを見る</button>
     <p id="lobby-error" class="error-text"></p>
 
@@ -454,7 +503,43 @@
       <thead><tr><th>プレイヤー</th><th>最終</th><th>元</th><th>投票先</th></tr></thead>
       <tbody id="result-tbody"></tbody>
     </table>
-    <button class="btn btn-primary" style="margin-top:16px" onclick="location.reload()">もう一度</button>
+    <button class="btn btn-primary" style="margin-top:16px" onclick="openPostGameLobby()">次のゲームへ →</button>
+    <button class="btn" style="margin-top:8px;background:var(--card2);color:var(--muted);border:1px solid var(--border)" onclick="location.reload()">退出する</button>
+  </div>
+</div>
+
+<!-- ゲーム終了後ロビー -->
+<div id="overlay-postgame" class="overlay hidden">
+  <div class="panel" style="max-width:440px">
+    <h2>🐺 次のゲーム</h2>
+    <p class="muted" style="text-align:center">ルームコード: <strong id="pg-code"></strong></p>
+
+    <div style="margin:14px 0">
+      <h4 style="font-size:0.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">プレイヤー（最大5人）</h4>
+      <div id="pg-players" class="player-list-lobby"></div>
+      <p class="muted" id="pg-cpu-info" style="font-size:0.78rem;margin-top:4px"></p>
+    </div>
+
+    <div style="margin:14px 0">
+      <h4 style="font-size:0.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">観戦者</h4>
+      <div id="pg-spectators" class="player-list-lobby"></div>
+      <p id="pg-no-spec" class="muted" style="font-size:0.78rem">なし</p>
+    </div>
+
+    <div id="llm-config-pg" class="hidden" style="text-align:center;margin:8px 0">
+      <span class="muted" style="font-size:0.8rem">AI席のうち LLM の人数：</span>
+      <span id="llm-count-btns-pg"></span>
+    </div>
+
+    <hr class="divider">
+    <div id="pg-switch-wrap" style="text-align:center;margin-bottom:10px">
+      <button id="pg-switch-btn" class="btn" style="background:var(--card2);color:var(--text);border:1px solid var(--border)" onclick="requestSwitch()"></button>
+    </div>
+    <div id="pg-host-wrap" class="hidden">
+      <button class="btn btn-primary" onclick="startGame()">ゲーム開始</button>
+    </div>
+    <p id="pg-guest-msg" class="muted hidden" style="text-align:center">ホストがゲームを開始するまでお待ちください</p>
+    <button class="btn" style="margin-top:10px;background:transparent;color:var(--muted);border:1px solid var(--border);font-size:0.8rem" onclick="location.reload()">退出する</button>
   </div>
 </div>
 
@@ -508,6 +593,11 @@
     <div class="target-bar hidden" id="target-bar"></div>
     <div class="target-bar hidden" id="result-bar"></div>
     <div class="target-bar hidden" id="basis-bar"></div>
+    <div id="name-bar" class="hidden"></div>
+    <div id="reply-preview-bar" class="reply-preview hidden">
+      <span id="reply-preview-text"></span>
+      <span class="rp-close" onclick="clearReply()">✕</span>
+    </div>
     <div class="input-bar">
       <input type="text" id="chat-input" placeholder="ゲーム開始後に発言できます"
              disabled maxlength="140"
@@ -518,6 +608,44 @@
 </div>
 
 <script>
+const PLAYER_COLORS = ['--pc0','--pc1','--pc2','--pc3','--pc4','--pc5','--pc6','--pc7'];
+const playerColorMap = {};  // player_id → CSS変数名
+
+function assignPlayerColors(players) {
+  players.forEach((p, i) => {
+    playerColorMap[p] = PLAYER_COLORS[i % PLAYER_COLORS.length];
+  });
+}
+
+function playerColor(name) {
+  return playerColorMap[name] ? `var(${playerColorMap[name]})` : 'var(--muted)';
+}
+
+function renderNameBar() {
+  const bar = document.getElementById('name-bar');
+  const others = G.allPlayers.filter(p => p !== G.myName);
+  bar.innerHTML = others.map(p => {
+    const col = playerColor(p);
+    return `<button class="name-btn" style="color:${col};border-color:${col}"
+              onclick="insertName('${p.replace(/'/g,"\\'")}')">@${p}</button>`;
+  }).join('');
+}
+
+function insertName(name) {
+  const input = document.getElementById('chat-input');
+  if (input.disabled) return;
+  const start = input.selectionStart;
+  const end   = input.selectionEnd;
+  const val   = input.value;
+  const prefix = (start > 0 && val[start - 1] !== ' ') ? ' ' : '';
+  const suffix = (end < val.length && val[end] !== ' ') ? ' ' : '';
+  const insert = prefix + name + suffix;
+  input.value = val.slice(0, start) + insert + val.slice(end);
+  const pos = start + insert.length;
+  input.setSelectionRange(pos, pos);
+  input.focus();
+}
+
 const G = {
   myName: '', roomCode: '', host: '',
   myRole: '', allPlayers: [],
@@ -528,6 +656,9 @@ const G = {
   inDiscussion: false,
   selectedVote: null,
   selectedNight: null,
+  isSpectator: false,
+  replyTo: null,  // {player, text} or null
+  _spectators: {},  // name → true（観戦者セット）
   llmCount: 0,
   aiSlots: 0,
   typingSet: new Set(),
@@ -556,6 +687,35 @@ async function joinRoom() {
   document.getElementById('header-title').textContent = name;
   document.getElementById('header-sub').textContent = 'ルーム: ' + roomCode;
   connectWS(roomCode, name);
+}
+
+function spectateRoom() {
+  const name = document.getElementById('input-name').value.trim();
+  const code = document.getElementById('input-code').value.trim().toUpperCase();
+  const err  = document.getElementById('lobby-error');
+  err.textContent = '';
+  if (!name) { err.textContent = '名前を入力してください'; return; }
+  if (!code)  { err.textContent = 'ルームコードを入力してください'; return; }
+
+  G.myName = name; G.roomCode = code; G.isSpectator = true; G._spectators = {};
+  document.getElementById('display-code').textContent = code;
+  document.getElementById('header-title').textContent = name + ' （観戦中）';
+  document.getElementById('header-sub').textContent = 'ルーム: ' + code;
+  document.getElementById('overlay-lobby').classList.add('hidden');
+  document.getElementById('pg-code').textContent = code;
+  document.getElementById('overlay-postgame').classList.remove('hidden');
+
+  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+  G.ws = new WebSocket(`${proto}://${location.host}/ws/spectate/${code}/${encodeURIComponent(name)}`);
+  G.ws.onmessage = e => handleMsg(JSON.parse(e.data));
+  G.ws.onclose = () => sysMsg('観戦接続が切れました');
+  sysMsg('👁 観戦モードで接続中…');
+  document.querySelector('.spectator-badge') || (() => {
+    const badge = document.createElement('span');
+    badge.className = 'spectator-badge';
+    badge.textContent = '👁 観戦';
+    document.getElementById('header-title').after(badge);
+  })();
 }
 
 function connectWS(roomCode, name) {
@@ -588,6 +748,9 @@ function handleMsg(msg) {
     case 'vote_request':   onVoteRequest(msg); break;
     case 'vote_cast':      onVoteCast(msg);    break;
     case 'game_over':      onGameOver(msg);    break;
+    case 'spectate_joined': onSpectateJoined(msg); break;
+    case 'post_game_lobby': onPostGameLobby(msg); break;
+    case 'role_changed':    onRoleChanged(msg);   break;
     case 'error':          alert(msg.message); break;
   }
 }
@@ -595,6 +758,13 @@ function handleMsg(msg) {
 // ─── ロビー処理 ──────────────────────────────────────────────────────────
 
 function onLobbyUpdate(msg) {
+  // 観戦者はロビー表示を持たないのでプレイヤーリストだけ更新
+  if (G.isSpectator) {
+    G.allPlayers = msg.players;
+    assignPlayerColors(msg.players);
+    renderSidePlayers();
+    return;
+  }
   G.host = msg.host;
   document.getElementById('waiting-section').classList.remove('hidden');
 
@@ -653,13 +823,31 @@ function startGame() { send({ type: 'start_game' }); }
 // ─── ゲーム開始 ──────────────────────────────────────────────────────────
 
 function onGameStarting() {
-  document.getElementById('overlay-lobby').classList.add('hidden');
+  if (!G.isSpectator)
+    document.getElementById('overlay-lobby').classList.add('hidden');
+  document.getElementById('overlay-postgame').classList.add('hidden');
+  document.getElementById('result-modal').classList.add('hidden');
+  document.getElementById('name-bar').classList.add('hidden');
+  G.myRole = '';
+  document.getElementById('side-role').innerHTML = '―';
+  document.getElementById('side-knowledge').textContent = '―';
   sysMsg('ゲーム開始！');
+}
+
+function onSpectateJoined(msg) {
+  G.allPlayers = msg.players;
+  G._spectators = {};
+  (msg.spectators || []).forEach(n => { G._spectators[n] = true; });
+  assignPlayerColors(msg.players);
+  renderSidePlayers();
+  sysMsg(`👁 観戦開始（参加者: ${msg.players.join('、') || '待機中'}）`);
+  onPostGameLobby({ players: msg.players, spectators: msg.spectators || [], host: G.host });
 }
 
 function onRoleAssigned(msg) {
   G.myRole = msg.role;
   G.allPlayers = msg.all_players;
+  assignPlayerColors(msg.all_players);
   document.getElementById('side-role').innerHTML =
     `<div class="role-badge ${msg.role}">${msg.role}</div>`;
   renderSidePlayers();
@@ -671,8 +859,8 @@ function renderSidePlayers() {
     const isCpu = p.startsWith('CPU-');
     let cls = 'player-chip' + (p === G.myName ? ' me' : '');
     return `<div class="${cls}">
-      <div class="dot"></div>
-      <span>${p}</span>
+      <div class="dot" style="background:${playerColor(p)}"></div>
+      <span style="color:${p === G.myName ? 'var(--text)' : playerColor(p)}">${p}</span>
       ${isCpu ? '<span class="cpu-label">CPU</span>' : ''}
     </div>`;
   }).join('');
@@ -702,6 +890,10 @@ function onPhase(msg) {
     document.getElementById('send-btn').disabled = false;
     document.getElementById('chat-input').placeholder = '発言を入力…（Enterで送信）';
     enableIntentBar(true);
+    if (!G.isSpectator) {
+      renderNameBar();
+      document.getElementById('name-bar').classList.remove('hidden');
+    }
     sysMsg('💬 議論フェーズ開始 — 自由に発言してください', true);
     startTimer(msg.duration || 120);
     document.getElementById('chat-input').focus();
@@ -712,6 +904,7 @@ function onPhase(msg) {
     document.getElementById('chat-input').disabled = true;
     document.getElementById('send-btn').disabled = true;
     enableIntentBar(false);
+    document.getElementById('name-bar').classList.add('hidden');
     document.getElementById('chat-input').placeholder = '投票フェーズ中';
     sysMsg('⚔️ 投票フェーズ — 画面の指示に従って投票してください', true);
     document.getElementById('timer-display').textContent = '--:--';
@@ -841,14 +1034,17 @@ function renderTyping() {
 }
 
 function onStatement(msg) {
-  clearTyping(msg.player);  // 発言が来たら入力中を消す
+  clearTyping(msg.player);
   const log = document.getElementById('chat-log');
   const div = document.createElement('div');
   const isMe = msg.player === G.myName;
   div.className = 'msg ' + (isMe ? 'me' : 'other');
+  const col = playerColor(msg.player);
+
   let intentLabel = (msg.intent && msg.intent !== 'none') ? INTENT_LABELS[msg.intent] || msg.intent : '';
   if (intentLabel && msg.target) {
-    intentLabel += ` → ${msg.target}`;
+    const targets = Array.isArray(msg.target) ? msg.target : [msg.target];
+    intentLabel += ` → ${targets.join('・')}`;
     if ((msg.intent === 'seer_result' || msg.intent === 'robber_result') && msg.result)
       intentLabel += `（${msg.result}）`;
   }
@@ -860,20 +1056,34 @@ function onStatement(msg) {
   const srcTag = msg.source === 'llm'
     ? '<span class="cpu-tag" style="color:#7cc5ff;border:1px solid #3a6ea5">AI</span>'
     : (msg.is_cpu ? '<span class="cpu-tag">CPU</span>' : '');
+
+  // リプライ引用表示
+  const replyQuote = (msg.reply_to && msg.reply_to.player)
+    ? `<div class="reply-quote">↩ <strong>${escHtml(msg.reply_to.player)}</strong>: ${escHtml((msg.reply_to.text||'').slice(0,40))}${(msg.reply_to.text||'').length>40?'…':''}</div>`
+    : '';
+
+  // リプライボタン（観戦者・議論中以外は非表示）
+  const replyBtnHtml = G.isSpectator ? '' : `<button class="reply-btn" onclick="setReply('${escHtml(msg.player)}',this)" title="返信">↩</button>`;
+
   div.innerHTML = `
     <div class="sender">
-      <span>${msg.player}</span>
+      <span style="color:${col};font-weight:bold">${msg.player}</span>
       ${srcTag}
       ${intentBadge}
+      ${replyBtnHtml}
     </div>
-    <div class="bubble">${escHtml(msg.text)}</div>`;
+    ${replyQuote}
+    <div class="bubble" style="border-left:3px solid ${col}">${escHtml(msg.text)}</div>`;
+  // リプライボタンのdata-textをdatasetに格納
+  const btn = div.querySelector('.reply-btn');
+  if (btn) btn.dataset.text = msg.text;
   log.appendChild(div);
   log.scrollTop = log.scrollHeight;
 }
 
 // ─── インテント選択 ───────────────────────────────────────────────────────
 let selectedIntent = 'none';
-let selectedTarget = '';
+let selectedTargets = [];  // 複数選択対応
 let selectedResult = '';
 let selectedBasis = [];   // 論拠（複数選択）
 
@@ -881,6 +1091,8 @@ let selectedBasis = [];   // 論拠（複数選択）
 const INTENT_NEEDS_TARGET = ['suspect', 'vote_suggest', 'contradict', 'seer_result', 'robber_result', 'vouch', 'ask'];
 // 対象が必須（ask だけは任意）
 const INTENT_REQUIRE_TARGET = ['suspect', 'vote_suggest', 'contradict', 'seer_result', 'robber_result', 'vouch'];
+// 複数選択できるインテント
+const INTENT_MULTI_TARGET = ['suspect', 'vote_suggest', 'contradict'];
 // 論拠（basis）を選べるインテント
 const INTENT_NEEDS_BASIS = ['contradict', 'suspect'];
 // 対象ラベル（インテントごと）
@@ -904,7 +1116,7 @@ function selectIntent(btn) {
   document.querySelectorAll('.intent-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   selectedIntent = btn.dataset.intent;
-  selectedTarget = '';
+  selectedTargets = [];
   selectedResult = '';
   selectedBasis = [];
   renderTargetBar();
@@ -917,10 +1129,10 @@ function renderTargetBar() {
 
   // 対象選択バー
   if (INTENT_NEEDS_TARGET.includes(selectedIntent)) {
-    const label = TARGET_LABEL[selectedIntent] || '対象:';
+    const label = TARGET_LABEL[selectedIntent] || (INTENT_MULTI_TARGET.includes(selectedIntent) ? '対象（複数可）:' : '対象:');
     const opts = G.allPlayers.filter(p => p !== G.myName);
     tb.innerHTML = `<span class="tb-label">${label}</span>` +
-      opts.map(p => `<button class="target-btn" data-target="${p}" onclick="selectTarget(this)">${p}</button>`).join('');
+      opts.map(p => `<button class="target-btn" data-target="${p}" onclick="toggleTarget(this)">${p}</button>`).join('');
     tb.classList.remove('hidden');
   } else {
     tb.innerHTML = '';
@@ -951,10 +1163,19 @@ function renderTargetBar() {
   }
 }
 
-function selectTarget(btn) {
-  document.querySelectorAll('#target-bar .target-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  selectedTarget = btn.dataset.target;
+function toggleTarget(btn) {
+  const p = btn.dataset.target;
+  if (INTENT_MULTI_TARGET.includes(selectedIntent)) {
+    // 複数選択可
+    const i = selectedTargets.indexOf(p);
+    if (i >= 0) { selectedTargets.splice(i, 1); btn.classList.remove('active'); }
+    else { selectedTargets.push(p); btn.classList.add('active'); }
+  } else {
+    // 単一選択
+    document.querySelectorAll('#target-bar .target-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedTargets = [p];
+  }
 }
 
 function selectResult(btn) {
@@ -975,7 +1196,7 @@ function resetIntent() {
   const noneBtn = document.querySelector('.intent-btn[data-intent="none"]');
   if (noneBtn) noneBtn.classList.add('active');
   selectedIntent = 'none';
-  selectedTarget = '';
+  selectedTargets = [];
   selectedResult = '';
   selectedBasis = [];
   renderTargetBar();
@@ -988,7 +1209,7 @@ function enableIntentBar(enabled) {
   } else {
     document.querySelectorAll('.intent-btn').forEach(b => b.classList.remove('active'));
     selectedIntent = 'none';
-    selectedTarget = '';
+    selectedTargets = [];
     selectedResult = '';
     selectedBasis = [];
     document.getElementById('target-bar').classList.add('hidden');
@@ -1004,7 +1225,7 @@ function sendStatement() {
   if (!text) return;
 
   // 対象が必須のインテントで未選択ならガード
-  if (INTENT_REQUIRE_TARGET.includes(selectedIntent) && !selectedTarget) {
+  if (INTENT_REQUIRE_TARGET.includes(selectedIntent) && selectedTargets.length === 0) {
     sysMsg('⚠️ 「対象」を選択してください', false);
     return;
   }
@@ -1014,16 +1235,37 @@ function sendStatement() {
     return;
   }
 
+  // 単一選択インテントは文字列、複数選択は配列で送る
+  const targetVal = INTENT_MULTI_TARGET.includes(selectedIntent)
+    ? selectedTargets.slice()
+    : (selectedTargets[0] || '');
+
   send({
     type: 'statement',
     text,
     intent: selectedIntent,
-    target: selectedTarget,
+    target: targetVal,
     result: selectedResult,
     basis: selectedBasis.slice(),
+    reply_to: G.replyTo || undefined,
   });
   input.value = '';
   resetIntent();
+  clearReply();
+}
+
+function setReply(player, btn) {
+  G.replyTo = { player, text: btn.dataset.text || '' };
+  const bar = document.getElementById('reply-preview-bar');
+  document.getElementById('reply-preview-text').textContent =
+    `↩ ${player}: ${(G.replyTo.text).slice(0, 40)}${G.replyTo.text.length > 40 ? '…' : ''}`;
+  bar.classList.remove('hidden');
+  document.getElementById('chat-input').focus();
+}
+
+function clearReply() {
+  G.replyTo = null;
+  document.getElementById('reply-preview-bar').classList.add('hidden');
 }
 
 // ─── 投票 ────────────────────────────────────────────────────────────────
@@ -1083,6 +1325,123 @@ function onGameOver(msg) {
   }).join('');
 
   document.getElementById('result-modal').classList.remove('hidden');
+}
+
+// ─── ゲーム終了後ロビー ──────────────────────────────────────────────────
+
+function openPostGameLobby() {
+  document.getElementById('result-modal').classList.add('hidden');
+  document.getElementById('pg-code').textContent = G.roomCode;
+  document.getElementById('overlay-postgame').classList.remove('hidden');
+  _renderPGLobby(G.allPlayers, Object.keys(G._spectators || {}));
+}
+
+function onPostGameLobby(msg) {
+  G._spectators = {};
+  (msg.spectators || []).forEach(n => { G._spectators[n] = true; });
+  G.host = msg.host;
+  _renderPGLobby(msg.players, msg.spectators || []);
+}
+
+function _renderPGLobby(players, spectators) {
+  const isHost = (G.myName === G.host);
+
+  // プレイヤー一覧
+  const pgPlayers = document.getElementById('pg-players');
+  if (pgPlayers) {
+    pgPlayers.innerHTML = players.map(p => {
+      let cls = 'player-chip-lobby';
+      if (p === G.host)   cls += ' host';
+      if (p === G.myName) cls += ' me';
+      return `<div class="${cls}">${p}</div>`;
+    }).join('') || '<span class="muted" style="font-size:0.8rem">なし</span>';
+  }
+
+  // 観戦者一覧
+  const pgSpec = document.getElementById('pg-spectators');
+  const pgNoSpec = document.getElementById('pg-no-spec');
+  if (pgSpec) {
+    pgSpec.innerHTML = spectators.map(p => {
+      let cls = 'player-chip-lobby';
+      if (p === G.myName) cls += ' me';
+      return `<div class="${cls}">👁 ${p}</div>`;
+    }).join('');
+    const hasSpec = spectators.length > 0;
+    pgSpec.classList.toggle('hidden', !hasSpec);
+    if (pgNoSpec) pgNoSpec.classList.toggle('hidden', hasSpec);
+  }
+
+  // AI席情報
+  const aiSlots = Math.max(0, 5 - players.length);
+  const pgCpuInfo = document.getElementById('pg-cpu-info');
+  if (pgCpuInfo) pgCpuInfo.textContent = aiSlots > 0 ? `AI ${aiSlots}席が自動参加` : '5人揃っています';
+
+  // LLM設定（ホストのみ）
+  const llmCfgPg = document.getElementById('llm-config-pg');
+  if (llmCfgPg) {
+    llmCfgPg.classList.toggle('hidden', !(isHost && aiSlots > 0));
+    if (isHost && aiSlots > 0) {
+      G.aiSlots = aiSlots;
+      const wrap = document.getElementById('llm-count-btns-pg');
+      if (wrap) {
+        wrap.innerHTML = '';
+        for (let i = 0; i <= aiSlots; i++) {
+          const b = document.createElement('button');
+          b.className = 'intent-btn' + (G.llmCount === i ? ' active' : '');
+          b.textContent = i;
+          b.onclick = () => {
+            G.llmCount = i;
+            send({ type: 'set_llm_count', count: i });
+            document.querySelectorAll('#llm-count-btns-pg .intent-btn').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+          };
+          wrap.appendChild(b);
+        }
+      }
+    }
+  }
+
+  // 役割切替ボタン
+  const amIPlayer = players.includes(G.myName);
+  const switchBtn = document.getElementById('pg-switch-btn');
+  if (switchBtn) {
+    if (amIPlayer) {
+      switchBtn.textContent = '👁 観戦に切り替える';
+      switchBtn.style.display = '';
+    } else if (spectators.includes(G.myName)) {
+      switchBtn.textContent = '▶ プレイヤーとして参加する';
+      switchBtn.style.display = players.length < 5 ? '' : 'none';
+    } else {
+      switchBtn.style.display = 'none';
+    }
+  }
+
+  // ホストコントロール
+  const pgHostWrap = document.getElementById('pg-host-wrap');
+  const pgGuestMsg = document.getElementById('pg-guest-msg');
+  if (pgHostWrap) pgHostWrap.classList.toggle('hidden', !isHost);
+  if (pgGuestMsg) pgGuestMsg.classList.toggle('hidden', isHost);
+}
+
+function requestSwitch() {
+  if (G._spectators && G._spectators[G.myName]) {
+    send({ type: 'request_join' });
+  } else {
+    send({ type: 'request_spectate' });
+  }
+}
+
+function onRoleChanged(msg) {
+  G.isSpectator = (msg.new_role === 'spectator');
+  const label = G.isSpectator ? '（観戦中）' : '';
+  document.getElementById('header-title').textContent = G.myName + label;
+  // 観戦者になったら入力を無効化、プレイヤーになったら復元（議論中のみ）
+  if (G.isSpectator) {
+    document.getElementById('chat-input').disabled = true;
+    document.getElementById('send-btn').disabled = true;
+    enableIntentBar(false);
+  }
+  sysMsg(G.isSpectator ? '👁 観戦者に切り替わりました' : '▶ プレイヤーとして参加しました');
 }
 
 // ─── システムメッセージ ──────────────────────────────────────────────────
