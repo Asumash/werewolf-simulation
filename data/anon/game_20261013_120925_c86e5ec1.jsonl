@@ -5,7 +5,7 @@
 {"type": "statement", "game_id": "c86e5ec1", "order": 3, "player_id": "P4", "statement": "怪盗です。P2と交換して、今は村人です。", "intent": "robber_result", "target": "P2", "result": "村人", "basis": []}
 {"type": "statement", "game_id": "c86e5ec1", "order": 4, "player_id": "P2", "statement": "自分も村人です", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "c86e5ec1", "order": 5, "player_id": "P5", "statement": "P3が村人って言ってるけど、怪しいかもね。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
-{"type": "statement", "game_id": "c86e5ec1", "order": 6, "player_id": "P1", "statement": "P3さんの村人CO、ちょっと怪しいかも。もう少し様子見た方がいいかな。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 6, "player_id": "P1", "statement": "P3の村人CO、ちょっと怪しいかも。もう少し様子見た方がいいかな。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
 {"type": "statement", "game_id": "c86e5ec1", "order": 7, "player_id": "P3", "statement": "おい", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "c86e5ec1", "order": 8, "player_id": "P3", "statement": "たまには信じてみろよ", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "c86e5ec1", "order": 9, "player_id": "P2", "statement": "君正しいよ", "intent": "vouch", "target": "P4", "result": "", "basis": []}

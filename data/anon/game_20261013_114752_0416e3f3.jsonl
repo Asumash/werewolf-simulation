@@ -5,7 +5,7 @@
 {"type": "statement", "game_id": "0416e3f3", "order": 3, "player_id": "P5", "statement": "結果ありますか", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "0416e3f3", "order": 4, "player_id": "P4", "statement": "占いどうぞ", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "0416e3f3", "order": 5, "player_id": "P4", "statement": "いない？", "intent": "none", "target": "", "result": "", "basis": []}
-{"type": "statement", "game_id": "0416e3f3", "order": 6, "player_id": "P1", "statement": "のび太くんは村人", "intent": "robber_result", "target": "P4", "result": "村人", "basis": []}
+{"type": "statement", "game_id": "0416e3f3", "order": 6, "player_id": "P1", "statement": "P4は村人", "intent": "robber_result", "target": "P4", "result": "村人", "basis": []}
 {"type": "statement", "game_id": "0416e3f3", "order": 7, "player_id": "P1", "statement": "だった", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "0416e3f3", "order": 8, "player_id": "P4", "statement": "やった〜！どらえもーん", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "0416e3f3", "order": 9, "player_id": "P5", "statement": "占いが墓地へ行ったか？", "intent": "none", "target": "", "result": "", "basis": []}
@@ -18,7 +18,7 @@
 {"type": "statement", "game_id": "0416e3f3", "order": 16, "player_id": "P4", "statement": "自分村人です", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "0416e3f3", "order": 17, "player_id": "P1", "statement": "つりすけ怪しい", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "0416e3f3", "order": 18, "player_id": "P3", "statement": "占いが墓地に行ったとしたら", "intent": "none", "target": "", "result": "", "basis": []}
-{"type": "statement", "game_id": "0416e3f3", "order": 19, "player_id": "P2", "statement": "のび太は村人感ある", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0416e3f3", "order": 19, "player_id": "P2", "statement": "P4は村人感ある", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "0416e3f3", "order": 20, "player_id": "P3", "statement": "占い師が怪しいのでは", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "0416e3f3", "order": 21, "player_id": "P2", "statement": "ありえますね", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "0416e3f3", "order": 22, "player_id": "P4", "statement": "ここで占い師疑うの謎じゃないか？", "intent": "none", "target": "", "result": "", "basis": []}

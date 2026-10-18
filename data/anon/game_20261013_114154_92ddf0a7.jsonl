@@ -11,7 +11,7 @@
 {"type": "statement", "game_id": "92ddf0a7", "order": 9, "player_id": "P4", "statement": "P1は怪盗らしいです", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "92ddf0a7", "order": 10, "player_id": "P5", "statement": "ほほう", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "92ddf0a7", "order": 11, "player_id": "P3", "statement": "ほう", "intent": "none", "target": "", "result": "", "basis": []}
-{"type": "statement", "game_id": "92ddf0a7", "order": 12, "player_id": "P2", "statement": "光彦は占い？", "intent": "ask", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "92ddf0a7", "order": 12, "player_id": "P2", "statement": "P5は占い？", "intent": "ask", "target": "P5", "result": "", "basis": []}
 {"type": "statement", "game_id": "92ddf0a7", "order": 13, "player_id": "P1", "statement": "合ってます", "intent": "vouch", "target": "P4", "result": "", "basis": []}
 {"type": "statement", "game_id": "92ddf0a7", "order": 14, "player_id": "P3", "statement": "貴様誰を盗ったんだい", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "92ddf0a7", "order": 15, "player_id": "P4", "statement": "怪盗の結果は？", "intent": "ask", "target": "P1", "result": "", "basis": []}

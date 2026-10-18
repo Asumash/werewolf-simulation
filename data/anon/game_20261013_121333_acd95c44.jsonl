@@ -20,7 +20,7 @@
 {"type": "statement", "game_id": "acd95c44", "order": 18, "player_id": "P4", "statement": "P2の占い師CO、墓地情報だけじゃ信じにくいな。", "intent": "contradict", "target": "P2", "result": "", "basis": ["P5", "P1"]}
 {"type": "statement", "game_id": "acd95c44", "order": 19, "player_id": "P1", "statement": "P2の占い師CO、ちょっと信じがたいよね。もう少し詳しく聞かせてよ。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
 {"type": "statement", "game_id": "acd95c44", "order": 20, "player_id": "P2", "statement": "俺が占い師だって言ってるのに、なんで信じないの？", "intent": "none", "target": "", "result": "", "basis": []}
-{"type": "statement", "game_id": "acd95c44", "order": 21, "player_id": "P5", "statement": "人狼が2枚と仮定すると，llm1,3 が怪しいか？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 21, "player_id": "P5", "statement": "人狼が2枚と仮定すると，P4,3 が怪しいか？", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "acd95c44", "order": 22, "player_id": "P5", "statement": "鶴森もあやしいけど", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "acd95c44", "order": 23, "player_id": "P5", "statement": "こっちやったわ", "intent": "suspect", "target": "P3", "result": "", "basis": []}
 {"type": "statement", "game_id": "acd95c44", "order": 24, "player_id": "P3", "statement": "P2かP1のどちらかは人狼かも", "intent": "none", "target": "", "result": "", "basis": []}

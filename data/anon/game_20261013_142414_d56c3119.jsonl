@@ -11,7 +11,7 @@
 {"type": "statement", "game_id": "d56c3119", "order": 9, "player_id": "P5", "statement": "P1が怪盗を疑うのは村人陣営の行動にしてはおかしいよね。", "intent": "contradict", "target": "P1", "result": "", "basis": ["P3", "P2"]}
 {"type": "statement", "game_id": "d56c3119", "order": 10, "player_id": "P2", "statement": "P1が怪盗を疑うのは変だよ。村人の誰かが怪しいと思う。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
 {"type": "statement", "game_id": "d56c3119", "order": 11, "player_id": "P1", "statement": "うーん、P2が怪しい感じがするな。みんな、どう思う？", "intent": "suspect", "target": "P2", "result": "", "basis": []}
-{"type": "statement", "game_id": "d56c3119", "order": 12, "player_id": "P4", "statement": "LLM2の会話がおかしいと思います", "intent": "suspect", "target": "P2", "result": "", "basis": ["P2"]}
+{"type": "statement", "game_id": "d56c3119", "order": 12, "player_id": "P4", "statement": "P2の会話がおかしいと思います", "intent": "suspect", "target": "P2", "result": "", "basis": ["P2"]}
 {"type": "statement", "game_id": "d56c3119", "order": 13, "player_id": "P2", "statement": "P1が怪盗疑うのはおかしいよ。村人の誰かが怪しいと思う。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
 {"type": "statement", "game_id": "d56c3119", "order": 14, "player_id": "P3", "statement": "村人だよ", "intent": "vouch", "target": "P2", "result": "", "basis": []}
 {"type": "statement", "game_id": "d56c3119", "order": 15, "player_id": "P2", "statement": "うーん、P1が怪盗を疑うのは村人として変じゃない？他の村人が怪しいと思う。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
@@ -22,7 +22,7 @@
 {"type": "statement", "game_id": "d56c3119", "order": 20, "player_id": "P2", "statement": "うーん、P1の方が怪しいと思う。村人の誰かを疑おうよ。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
 {"type": "statement", "game_id": "d56c3119", "order": 21, "player_id": "P5", "statement": "P3が村人って言うのは、ちょっと怪しいかも。根拠はないけど。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
 {"type": "statement", "game_id": "d56c3119", "order": 22, "player_id": "P1", "statement": "P3が村人って言ってるの、ちょっと怪しいよね。みんなどう思う？", "intent": "suspect", "target": "P3", "result": "", "basis": []}
-{"type": "statement", "game_id": "d56c3119", "order": 23, "player_id": "P4", "statement": "LLM１が怪しい気がする", "intent": "vote_suggest", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 23, "player_id": "P4", "statement": "P1が怪しい気がする", "intent": "vote_suggest", "target": "P1", "result": "", "basis": []}
 {"type": "statement", "game_id": "d56c3119", "order": 24, "player_id": "P1", "statement": "うーん、P5の言ってることが怪しい気がする。みんなどう思う？", "intent": "suspect", "target": "P5", "result": "", "basis": []}
 {"type": "statement", "game_id": "d56c3119", "order": 25, "player_id": "P3", "statement": "君の見解を教えて", "intent": "ask", "target": "P5", "result": "", "basis": []}
 {"type": "statement", "game_id": "d56c3119", "order": 26, "player_id": "P5", "statement": "P3が村人って言ってるの、逆に怪しいかもね。", "intent": "suspect", "target": "P3", "result": "", "basis": []}

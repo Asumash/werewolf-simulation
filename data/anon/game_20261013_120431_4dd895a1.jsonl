@@ -1,7 +1,7 @@
 {"type": "meta", "schema_version": 2, "game_id": "4dd895a1", "timestamp": "20261013_120431", "players": ["P3", "P1", "P4", "P2", "P5"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P3": "怪盗", "P1": "人狼", "P4": "占い師", "P2": "村人", "P5": "村人"}, "original_role_map": {"P3": "村人", "P1": "人狼", "P4": "占い師", "P2": "村人", "P5": "怪盗"}, "graveyard": ["村人", "人狼"], "result": {"winner": "village", "executed": ["P1"]}}
 {"type": "statement", "game_id": "4dd895a1", "order": 0, "player_id": "P1", "statement": "私は人狼じゃありません", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "4dd895a1", "order": 1, "player_id": "P3", "statement": "結果をお願いします", "intent": "none", "target": "", "result": "", "basis": []}
-{"type": "statement", "game_id": "4dd895a1", "order": 2, "player_id": "P4", "statement": "占い師です。P3さんを占ったら村人でした。", "intent": "seer_result", "target": "P3", "result": "村人陣営", "basis": []}
+{"type": "statement", "game_id": "4dd895a1", "order": 2, "player_id": "P4", "statement": "占い師です。P3を占ったら村人でした。", "intent": "seer_result", "target": "P3", "result": "村人陣営", "basis": []}
 {"type": "statement", "game_id": "4dd895a1", "order": 3, "player_id": "P2", "statement": "P1の発言、逆に怪しい気がする。少し考えよう。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
 {"type": "statement", "game_id": "4dd895a1", "order": 4, "player_id": "P5", "statement": "怪盗です。P3と交換して、今は村人です。", "intent": "robber_result", "target": "P3", "result": "村人", "basis": []}
 {"type": "statement", "game_id": "4dd895a1", "order": 5, "player_id": "P1", "statement": "本当のこと言っただけだよ", "intent": "none", "target": "", "result": "", "basis": []}

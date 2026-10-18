@@ -29,6 +29,12 @@ python -m dev.batch_run --llm 1 --fewshot data/train/fewshot_human.json  # 人�
 - `turing_eval.py` … LLM審判が発言を人間/AI判定し、ソース別の「人間らしさスコア」を算出。
 - `export_training.py` … 対戦ログ（既定 human）を fine-tune 用 JSONL と few-shot 例に書き出し。
   → `batch_run --fewshot <bank.json>` で LLM に人間の口調を注入できる。
+- `anonymize.py` … ログを匿名化（名前→P1〜P5、type/model除去）し `ground_truth.jsonl` を出力。
+  実名の**完全一致だけでなく、略称・部分名（野比のび太→のび太）・敬称つき（のび太くん）・
+  かな読み・表記ゆれ（LLM-3／LLM３）**も置換する。ゲーム用語（怪盗・占い・吊る等）は
+  ストップワードで保護。かな読み照合は `pykakasi`（任意）。辞書外の当て字読みや無関係な
+  あだ名（乃木吊助→つりすけ、光彦→元太君）は機械的に導けないため、必要なら
+  `--aliases dict.json`（`{"つりすけ":"乃木吊助"}`）で一度宣言すれば全ログに適用できる。
 - `run_cp_only.py` … 全員ルールベースCPで対戦（簡易）
 - `main.py` … 旧CLI版（コンソールで人間＋CPU＋LLM）
 - `generate_data.py` / `clean_data.py` … 学習データの生成・整形

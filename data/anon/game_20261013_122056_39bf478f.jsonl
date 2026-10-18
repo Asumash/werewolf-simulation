@@ -1,7 +1,7 @@
 {"type": "meta", "schema_version": 2, "game_id": "39bf478f", "timestamp": "20261013_122056", "players": ["P4", "P3", "P2", "P5", "P1"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P4": "占い師", "P3": "怪盗", "P2": "村人", "P5": "人狼", "P1": "村人"}, "original_role_map": {"P4": "占い師", "P3": "人狼", "P2": "村人", "P5": "怪盗", "P1": "村人"}, "graveyard": ["人狼", "村人"], "result": {"winner": "werewolf", "executed": ["P4"]}}
 {"type": "statement", "game_id": "39bf478f", "order": 0, "player_id": "P3", "statement": "おはよう", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "39bf478f", "order": 1, "player_id": "P2", "statement": "P3の発言、何か裏がありそうじゃない？もっと詳しく話してよ。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
-{"type": "statement", "game_id": "39bf478f", "order": 2, "player_id": "P5", "statement": "俺、占い師だ。P4さんを占ったら人狼だった。信じてほしい。", "intent": "seer_result", "target": "P4", "result": "人狼", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 2, "player_id": "P5", "statement": "俺、占い師だ。P4を占ったら人狼だった。信じてほしい。", "intent": "seer_result", "target": "P4", "result": "人狼", "basis": []}
 {"type": "statement", "game_id": "39bf478f", "order": 3, "player_id": "P1", "statement": "P3の発言が気になるんだけど、何か隠してるんじゃない？", "intent": "suspect", "target": "P3", "result": "", "basis": []}
 {"type": "statement", "game_id": "39bf478f", "order": 4, "player_id": "P3", "statement": "え？挨拶しただけじゃん", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "39bf478f", "order": 5, "player_id": "P4", "statement": "占い師です　墓地見たけど人狼と村人しかありませんでした", "intent": "none", "target": "", "result": "", "basis": []}

@@ -9,19 +9,19 @@
 {"type": "statement", "game_id": "e67a924c", "order": 7, "player_id": "P3", "statement": "P4 どう思う？", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "e67a924c", "order": 8, "player_id": "P2", "statement": "怪盗はいますか？", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "e67a924c", "order": 9, "player_id": "P3", "statement": "おれは信頼してる", "intent": "vouch", "target": "P2", "result": "", "basis": []}
-{"type": "statement", "game_id": "e67a924c", "order": 10, "player_id": "P4", "statement": "P2、怪しいってみんな言ってるけど、アナキンは信頼してるの？", "intent": "ask", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "e67a924c", "order": 10, "player_id": "P4", "statement": "P2、怪しいってみんな言ってるけど、P3は信頼してるの？", "intent": "ask", "target": "P3", "result": "", "basis": []}
 {"type": "statement", "game_id": "e67a924c", "order": 11, "player_id": "P1", "statement": "P3がP2を信頼する理由が気になる。何か隠してるんじゃない？", "intent": "suspect", "target": "P3", "result": "", "basis": []}
 {"type": "statement", "game_id": "e67a924c", "order": 12, "player_id": "P5", "statement": "P2が気になるな。なんか隠してる気がする。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
 {"type": "statement", "game_id": "e67a924c", "order": 13, "player_id": "P2", "statement": "疑う理由は何？", "intent": "suspect", "target": "P1", "result": "", "basis": []}
 {"type": "statement", "game_id": "e67a924c", "order": 14, "player_id": "P3", "statement": "なんかかくしてない？", "intent": "suspect", "target": "P4", "result": "", "basis": []}
-{"type": "statement", "game_id": "e67a924c", "order": 15, "player_id": "P1", "statement": "アナキンがP2を信頼する理由がまじで気になる。何かあるんじゃない？", "intent": "suspect", "target": "P3", "result": "", "basis": []}
-{"type": "statement", "game_id": "e67a924c", "order": 16, "player_id": "P4", "statement": "アナキンがP2を信頼する理由が謎すぎる。怪しいよ。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "e67a924c", "order": 15, "player_id": "P1", "statement": "P3がP2を信頼する理由がまじで気になる。何かあるんじゃない？", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "e67a924c", "order": 16, "player_id": "P4", "statement": "P3がP2を信頼する理由が謎すぎる。怪しいよ。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
 {"type": "statement", "game_id": "e67a924c", "order": 17, "player_id": "P3", "statement": "根拠がないのに疑うのは違くない？", "intent": "suspect", "target": "P1", "result": "", "basis": []}
-{"type": "statement", "game_id": "e67a924c", "order": 18, "player_id": "P1", "statement": "アナキンがP2を信頼する理由、全然わからないんだけど。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "e67a924c", "order": 18, "player_id": "P1", "statement": "P3がP2を信頼する理由、全然わからないんだけど。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
 {"type": "statement", "game_id": "e67a924c", "order": 19, "player_id": "P3", "statement": "占いはいないの？", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "e67a924c", "order": 20, "player_id": "P3", "statement": "こいつがあやしくない？", "intent": "suspect", "target": "P5", "result": "", "basis": ["P2"]}
 {"type": "statement", "game_id": "e67a924c", "order": 21, "player_id": "P2", "statement": "怪盗もなし？", "intent": "none", "target": "", "result": "", "basis": []}
-{"type": "statement", "game_id": "e67a924c", "order": 22, "player_id": "P5", "statement": "アナキンがP2を信頼する理由、全然わからないんだけど。怪しいよね。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "e67a924c", "order": 22, "player_id": "P5", "statement": "P3がP2を信頼する理由、全然わからないんだけど。怪しいよね。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
 {"type": "vote", "game_id": "e67a924c", "voter": "P3", "target": "P4"}
 {"type": "vote", "game_id": "e67a924c", "voter": "P2", "target": "P5"}
 {"type": "vote", "game_id": "e67a924c", "voter": "P4", "target": "P3"}

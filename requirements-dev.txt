@@ -1,2 +1,4 @@
 # 開発・テスト用の依存
 pytest
+# 匿名化(dev/anonymize.py)でかな読み照合を使う場合（任意。無くてもルール置換は動く）
+pykakasi
