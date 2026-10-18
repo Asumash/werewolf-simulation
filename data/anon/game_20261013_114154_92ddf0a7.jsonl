@@ -21,7 +21,7 @@
 {"type": "statement", "game_id": "92ddf0a7", "order": 19, "player_id": "P4", "statement": "じゃあお互いに選びあったってこと？", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "92ddf0a7", "order": 20, "player_id": "P1", "statement": "うそじゃない", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "92ddf0a7", "order": 21, "player_id": "P3", "statement": "そんな都合よくいきますかね", "intent": "none", "target": "", "result": "", "basis": []}
-{"type": "statement", "game_id": "92ddf0a7", "order": 22, "player_id": "P5", "statement": "あやしいですよ，元太君！", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "92ddf0a7", "order": 22, "player_id": "P5", "statement": "あやしいですよ！", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "92ddf0a7", "order": 23, "player_id": "P3", "statement": "これP1人狼盗ったんじゃないですかね？", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "92ddf0a7", "order": 24, "player_id": "P5", "statement": "これどっちがあやしいんや", "intent": "none", "target": "", "result": "", "basis": []}
 {"type": "statement", "game_id": "92ddf0a7", "order": 25, "player_id": "P2", "statement": "ここの2人人狼って線ないか？", "intent": "none", "target": "", "result": "", "basis": []}
