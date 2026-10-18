@@ -1,0 +1,32 @@
+{"type": "meta", "schema_version": 2, "game_id": "496b701b", "timestamp": "20261013_143401", "players": ["P2", "P4", "P3", "P1", "P5"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P2": "怪盗", "P4": "占い師", "P3": "村人", "P1": "村人", "P5": "人狼"}, "original_role_map": {"P2": "村人", "P4": "占い師", "P3": "村人", "P1": "怪盗", "P5": "人狼"}, "graveyard": ["村人", "人狼"], "result": {"winner": "village", "executed": ["P4", "P5"]}}
+{"type": "statement", "game_id": "496b701b", "order": 0, "player_id": "P1", "statement": "怪盗です。P2と交換しました。私は今村人です。", "intent": "robber_result", "target": "P2", "result": "村人", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 1, "player_id": "P5", "statement": "私は占い師です。P1さんを占ったところ村人でした。", "intent": "seer_result", "target": "P1", "result": "村人陣営", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 2, "player_id": "P3", "statement": "P5さん、もう少し詳しく説明してもらえますか？", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 3, "player_id": "P5", "statement": "私は村人です。P3さんこそ人狼から目を逸らしていませんか？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 4, "player_id": "P4", "statement": "占いしました。墓地を占って村人と人狼が墓地にありました。", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 5, "player_id": "P3", "statement": "P5さん、私を疑う根拠が薄いと思います。私は村人です。", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 6, "player_id": "P5", "statement": "P3さん、私を疑うよりP4さんの方が怪しいと思いますよ。", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 7, "player_id": "P2", "statement": "村人なので言っていることは正しいと思います", "intent": "vouch", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 8, "player_id": "P4", "statement": "P5さん、あなたは占い師ではないですね？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 9, "player_id": "P3", "statement": "待ってください、P5さんの方こそ動きが不自然に見えます。", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 10, "player_id": "P3", "statement": "P4さん、もう少し詳しく説明してもらえますか？", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 11, "player_id": "P1", "statement": "私はP2と交換した怪盗です。その上でP5さんを疑っています。", "intent": "robber_result", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 12, "player_id": "P5", "statement": "P4さんの発言が気になります。もう少し説明してもらえますか？", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 13, "player_id": "P3", "statement": "P1さん、もう少し詳しく説明してもらえますか？", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 14, "player_id": "P2", "statement": "結果的に信用してもいい気がしています", "intent": "ask", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 15, "player_id": "P5", "statement": "議論を見ているとP4さんが怪しいと思います。", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 16, "player_id": "P1", "statement": "交換相手のP2以外だと、P4さんが一番怪しいですね。", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 17, "player_id": "P3", "statement": "P2さんの立ち回りがどうも気になります。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 18, "player_id": "P5", "statement": "占い師の立場から見てもP4さんの動きは不自然です。", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 19, "player_id": "P4", "statement": "私は占い師なのに、P5が占い師と言っているので人狼しかありえません。", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 20, "player_id": "P1", "statement": "私はP2と交換した怪盗です。その上でP4さんを疑っています。", "intent": "robber_result", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 21, "player_id": "P5", "statement": "P4さんへの疑いが晴れませんね。", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 22, "player_id": "P1", "statement": "P2と交換した結果を踏まえると、P4さんが最も怪しいです。", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 23, "player_id": "P3", "statement": "P4さんの話、少し引っかかる点がありますね。", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 24, "player_id": "P2", "statement": "つまりP4と３のどちらかが人狼ということでしょうか", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "496b701b", "order": 25, "player_id": "P1", "statement": "交換相手のP2以外だと、P4さんが一番怪しいですね。", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "vote", "game_id": "496b701b", "voter": "P2", "target": "P5"}
+{"type": "vote", "game_id": "496b701b", "voter": "P4", "target": "P5"}
+{"type": "vote", "game_id": "496b701b", "voter": "P3", "target": "P4"}
+{"type": "vote", "game_id": "496b701b", "voter": "P1", "target": "P4"}
+{"type": "vote", "game_id": "496b701b", "voter": "P5", "target": "P2"}

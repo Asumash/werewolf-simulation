@@ -1,0 +1,39 @@
+{"type": "meta", "schema_version": 2, "game_id": "0d40ac9d", "timestamp": "20261013_115331", "players": ["P4", "P5", "P3", "P2", "P1"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P4": "占い師", "P5": "怪盗", "P3": "村人", "P2": "村人", "P1": "村人"}, "original_role_map": {"P4": "占い師", "P5": "村人", "P3": "村人", "P2": "村人", "P1": "怪盗"}, "graveyard": ["人狼", "人狼"], "result": {"winner": "werewolf", "executed": ["P3"]}}
+{"type": "statement", "game_id": "0d40ac9d", "order": 0, "player_id": "P4", "statement": "おはよー", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 1, "player_id": "P3", "statement": "夜だろ", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 2, "player_id": "P2", "statement": "おはようのび太くん", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 3, "player_id": "P5", "statement": "おは", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 4, "player_id": "P4", "statement": "村人でしたね", "intent": "seer_result", "target": "P5", "result": "村人陣営", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 5, "player_id": "P1", "statement": "白だった", "intent": "robber_result", "target": "P5", "result": "村人", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 6, "player_id": "P2", "statement": "お？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 7, "player_id": "P3", "statement": "ん？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 8, "player_id": "P2", "statement": "うらないかぶり？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 9, "player_id": "P5", "statement": "信じる", "intent": "vouch", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 10, "player_id": "P4", "statement": "ほぼ確定で白ですね", "intent": "vouch", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 11, "player_id": "P1", "statement": "俺は怪盗ね", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 12, "player_id": "P2", "statement": "あーそういうことね", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 13, "player_id": "P3", "statement": "じゃあそこ三人は白か", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 14, "player_id": "P2", "statement": "じゃあ、吊こるが人狼や", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 15, "player_id": "P5", "statement": "入力スピード的にP1も本物っぽい", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 16, "player_id": "P3", "statement": "俺じゃないよー", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 17, "player_id": "P1", "statement": "あやしいな", "intent": "suspect", "target": "P3", "result": "", "basis": ["P2"]}
+{"type": "statement", "game_id": "0d40ac9d", "order": 18, "player_id": "P3", "statement": "何も根拠を出せないけど", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 19, "player_id": "P4", "statement": "もしかしたらかぶせてきただけかもやけどにしては早かった", "intent": "suspect", "target": "P1", "result": "", "basis": ["P1"]}
+{"type": "statement", "game_id": "0d40ac9d", "order": 20, "player_id": "P1", "statement": "P2もあやしいな", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 21, "player_id": "P2", "statement": "自分も村の根拠が出せない", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 22, "player_id": "P2", "statement": "ここから2部いちしかなくない？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 23, "player_id": "P4", "statement": "つまり　P2　OR　P3", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 24, "player_id": "P3", "statement": "こいつです", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 25, "player_id": "P1", "statement": "どちらもそうの可能性あり", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 26, "player_id": "P3", "statement": "信じてください", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 27, "player_id": "P2", "statement": "いや、こいつ", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 28, "player_id": "P5", "statement": "2人ともつっていいんじゃない", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 29, "player_id": "P3", "statement": "あー", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 30, "player_id": "P4", "statement": "まあ人狼が怪盗ですって言ってて本物いないかも", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 31, "player_id": "P1", "statement": "おれ，吊る入れるわ", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "0d40ac9d", "order": 32, "player_id": "P4", "statement": "もしかしたらね", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "vote", "game_id": "0d40ac9d", "voter": "P4", "target": "P2"}
+{"type": "vote", "game_id": "0d40ac9d", "voter": "P5", "target": "P3"}
+{"type": "vote", "game_id": "0d40ac9d", "voter": "P3", "target": "P2"}
+{"type": "vote", "game_id": "0d40ac9d", "voter": "P2", "target": "P3"}
+{"type": "vote", "game_id": "0d40ac9d", "voter": "P1", "target": "P3"}

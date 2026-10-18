@@ -1,0 +1,32 @@
+{"type": "meta", "schema_version": 2, "game_id": "17848f82", "timestamp": "20261013_143841", "players": ["P5", "P4", "P1", "P3", "P2"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P5": "村人", "P4": "村人", "P1": "村人", "P3": "怪盗", "P2": "占い師"}, "original_role_map": {"P5": "村人", "P4": "村人", "P1": "怪盗", "P3": "村人", "P2": "占い師"}, "graveyard": ["人狼", "人狼"], "result": {"winner": "werewolf", "executed": ["P2"]}}
+{"type": "statement", "game_id": "17848f82", "order": 0, "player_id": "P2", "statement": "俺は占い師だ。墓地は人狼×2だよ。", "intent": "seer_result", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 1, "player_id": "P5", "statement": "ってことは人狼が居ないってこと？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 2, "player_id": "P3", "statement": "P2が占い師って言ってるけど、墓地の情報が本当なら怪しいよね。", "intent": "contradict", "target": "P2", "result": "", "basis": ["P5", "P4", "P1", "P3"]}
+{"type": "statement", "game_id": "17848f82", "order": 3, "player_id": "P4", "statement": "怪盗はいる？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 4, "player_id": "P2", "statement": "怪盗はいるかもだけど、俺が占い師なのは確かだよ。墓地見せれば信じてもらえるじゃん。", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 5, "player_id": "P1", "statement": "怪盗です。P3と交換して、今は村人です。", "intent": "robber_result", "target": "P3", "result": "村人", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 6, "player_id": "P3", "statement": "P2が占い師なら墓地の情報出せるはずだよね。怪しいと思う。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 7, "player_id": "P1", "statement": "P2の占い師COが怪しいと思う。墓地の情報が本当なら人狼がいないんじゃないの？", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 8, "player_id": "P2", "statement": "P1が怪盗って言ってるけど、村人になってるのが怪しいよね。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 9, "player_id": "P5", "statement": "墓地に人狼が2枚あるってことは僕らは全員村人陣営じゃないか", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 10, "player_id": "P1", "statement": "P2の占い師COは矛盾してる。人狼が2枚なら怪しいよ。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 11, "player_id": "P4", "statement": "占い師が墓地の可能性ある", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 12, "player_id": "P2", "statement": "俺が占い師なのは間違いない。人狼が2枚なら村人陣営だろ。", "intent": "contradict", "target": "P1", "result": "", "basis": ["P3", "P5"]}
+{"type": "statement", "game_id": "17848f82", "order": 13, "player_id": "P1", "statement": "P2の占い師COはおかしいよ。人狼がいるのに村人陣営っておかしくない？", "intent": "contradict", "target": "P2", "result": "", "basis": ["P3", "P5"]}
+{"type": "statement", "game_id": "17848f82", "order": 14, "player_id": "P2", "statement": "俺が占い師なのは確かだし、P1の怪盗COも怪しい。投票はP1で！", "intent": "vote_suggest", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 15, "player_id": "P1", "statement": "P2の占い師COはおかしいよ。人狼2枚があるなら村人陣営じゃない？", "intent": "contradict", "target": "P2", "result": "", "basis": ["P1", "P5"]}
+{"type": "statement", "game_id": "17848f82", "order": 16, "player_id": "P3", "statement": "P2の占い師CO、矛盾してるよ。人狼が2枚いて村人陣営はおかしい。投票はP2で！", "intent": "vote_suggest", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 17, "player_id": "P2", "statement": "P1の主張が矛盾してるよ。人狼が2枚なら村人陣営でしょ？", "intent": "contradict", "target": "P1", "result": "", "basis": ["P3"]}
+{"type": "statement", "game_id": "17848f82", "order": 18, "player_id": "P4", "statement": "人狼がいるとしたらP2", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 19, "player_id": "P3", "statement": "P2の占い師CO、明らかに矛盾してるよ。投票はP2で！", "intent": "vote_suggest", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 20, "player_id": "P1", "statement": "P2の占い師CO、自分が人狼いないって言ってるのは矛盾してるよ。", "intent": "contradict", "target": "P2", "result": "", "basis": ["P3", "P5"]}
+{"type": "statement", "game_id": "17848f82", "order": 21, "player_id": "P5", "statement": "仮にP2が嘘をついていればP2が人狼だから、P2に投票しよう", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 22, "player_id": "P2", "statement": "P1の怪盗COが怪しい。人狼がいるのに村人陣営とはおかしいよ。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 23, "player_id": "P1", "statement": "P2の占い師COは明らかに矛盾してる。投票はP2で！", "intent": "vote_suggest", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "17848f82", "order": 24, "player_id": "P3", "statement": "P2の主張、明らかに矛盾してるから怪しいよね。", "intent": "contradict", "target": "P2", "result": "", "basis": ["P1", "P5"]}
+{"type": "statement", "game_id": "17848f82", "order": 25, "player_id": "P2", "statement": "P1が怪盗COしてるのに村人になってるのが逆に怪しい。投票はP1で！", "intent": "vote_suggest", "target": "P1", "result": "", "basis": []}
+{"type": "vote", "game_id": "17848f82", "voter": "P5", "target": "P2"}
+{"type": "vote", "game_id": "17848f82", "voter": "P4", "target": "P2"}
+{"type": "vote", "game_id": "17848f82", "voter": "P1", "target": "P2"}
+{"type": "vote", "game_id": "17848f82", "voter": "P3", "target": "P2"}
+{"type": "vote", "game_id": "17848f82", "voter": "P2", "target": "P1"}

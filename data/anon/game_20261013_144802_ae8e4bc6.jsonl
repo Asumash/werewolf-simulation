@@ -1,0 +1,31 @@
+{"type": "meta", "schema_version": 2, "game_id": "ae8e4bc6", "timestamp": "20261013_144802", "players": ["P3", "P2", "P4", "P5", "P1"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P3": "村人", "P2": "人狼", "P4": "怪盗", "P5": "村人", "P1": "人狼"}, "original_role_map": {"P3": "怪盗", "P2": "人狼", "P4": "村人", "P5": "村人", "P1": "人狼"}, "graveyard": ["村人", "占い師"], "result": {"winner": "werewolf", "executed": ["P3"]}}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 0, "player_id": "P3", "statement": "占い師は誰？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 1, "player_id": "P2", "statement": "P3、占い師なら占った人の結果早く言ってよ。怪しいと思う。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 2, "player_id": "P4", "statement": "P3が占い師を名乗るのは早すぎるんじゃない？", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 3, "player_id": "P5", "statement": "P3、占い師名乗らないなら怪しいぞ。早く名乗れ！", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 4, "player_id": "P1", "statement": "P4はちょっと怪しいと思う。早く疑いを向けてきたし。", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 5, "player_id": "P3", "statement": "村人と交換した", "intent": "robber_result", "target": "P4", "result": "村人", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 6, "player_id": "P4", "statement": "P2が早く占い結果を求めるのは不自然だと思う。怪しいぞ。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 7, "player_id": "P2", "statement": "P4、さっきの発言ちょっと怪しいと思う。ちょっと疑ってみようぜ。", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 8, "player_id": "P4", "statement": "P2が占い結果を急かすのは、逆に人狼っぽい気がする。怪しいよ。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 9, "player_id": "P5", "statement": "P3の占い師名乗り、交換後に村人って言ってるの怪しくない？", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 10, "player_id": "P1", "statement": "P4、なんか不自然だと思う。怪しいからちょっと疑ってみていい？", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 11, "player_id": "P2", "statement": "P4が急に俺を疑うのは怪しいと思う。ちょっと警戒しようぜ。", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 12, "player_id": "P4", "statement": "P3が村人と交換したって言うの、怪しすぎじゃない？", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 13, "player_id": "P3", "statement": "俺は占い師を名乗ってない", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 14, "player_id": "P3", "statement": "俺は怪盗でP4と交換して村人になった", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 15, "player_id": "P1", "statement": "P4、なんか怪しいよね。ちょっと疑ってみるわ。", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 16, "player_id": "P5", "statement": "P3、占い師名乗らないなら怪しいし、村人と交換したのも怪しいよ。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 17, "player_id": "P4", "statement": "P3が村人と交換したって言ってるの、矛盾してない？", "intent": "contradict", "target": "P3", "result": "", "basis": ["P5"]}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 18, "player_id": "P2", "statement": "P3が村人と交換したって言うの、ちょっと怪しいかも。疑ってみない？", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 19, "player_id": "P2", "statement": "P4の言動、ちょっと怪しいと思う。もう少し疑ってみない？", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 20, "player_id": "P4", "statement": "P3が怪盗だって言って村人になったの、矛盾してると思う。", "intent": "contradict", "target": "P3", "result": "", "basis": ["P2", "P5"]}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 21, "player_id": "P5", "statement": "P3の村人と交換したって、矛盾してる気がするんだけど。", "intent": "contradict", "target": "P3", "result": "", "basis": ["P2", "P4"]}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 22, "player_id": "P1", "statement": "P4、なんか言ってること矛盾してない？ちょっと怪しい。", "intent": "contradict", "target": "P4", "result": "", "basis": ["P2", "P3"]}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 23, "player_id": "P4", "statement": "P3が怪盗って言うの、村人と交換したのと矛盾してない？", "intent": "contradict", "target": "P3", "result": "", "basis": ["P2", "P5", "P4"]}
+{"type": "statement", "game_id": "ae8e4bc6", "order": 24, "player_id": "P2", "statement": "P3が村人と交換したって言うの、矛盾してるじゃない？", "intent": "contradict", "target": "P3", "result": "", "basis": ["P4", "P5"]}
+{"type": "vote", "game_id": "ae8e4bc6", "voter": "P3", "target": "P5"}
+{"type": "vote", "game_id": "ae8e4bc6", "voter": "P2", "target": "P3"}
+{"type": "vote", "game_id": "ae8e4bc6", "voter": "P4", "target": "P3"}
+{"type": "vote", "game_id": "ae8e4bc6", "voter": "P5", "target": "P3"}
+{"type": "vote", "game_id": "ae8e4bc6", "voter": "P1", "target": "P3"}

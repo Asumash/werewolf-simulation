@@ -1,0 +1,31 @@
+{"type": "meta", "schema_version": 2, "game_id": "acd95c44", "timestamp": "20261013_121333", "players": ["P3", "P5", "P4", "P2", "P1"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P3": "人狼", "P5": "村人", "P4": "村人", "P2": "占い師", "P1": "人狼"}, "original_role_map": {"P3": "人狼", "P5": "村人", "P4": "村人", "P2": "占い師", "P1": "人狼"}, "graveyard": ["怪盗", "村人"], "result": {"winner": "werewolf", "executed": ["P2"]}}
+{"type": "statement", "game_id": "acd95c44", "order": 0, "player_id": "P5", "statement": "おはよう", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 1, "player_id": "P3", "statement": "こんにちは", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 2, "player_id": "P1", "statement": "P5、怪盗の可能性あるからちょっと疑ってみようか。", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 3, "player_id": "P4", "statement": "P5の発言だけだと情報少ないな。もう少し動きがほしい。", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 4, "player_id": "P5", "statement": "占いないの？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 5, "player_id": "P3", "statement": "挨拶しただけやんけ", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 6, "player_id": "P2", "statement": "俺、占い師だよ。墓地は怪盗と村人だった。", "intent": "seer_result", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 7, "player_id": "P5", "statement": "疑うの早くない？", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 8, "player_id": "P1", "statement": "P5、ちょっと怪しい気がする。もう少し考えてみよう。", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 9, "player_id": "P4", "statement": "P2が占い師名乗ってるけど、墓地の情報だけで怪盗確認するのは怪しくない？", "intent": "contradict", "target": "P2", "result": "", "basis": ["P5", "P3", "P1"]}
+{"type": "statement", "game_id": "acd95c44", "order": 10, "player_id": "P5", "statement": "じゃあ人狼が2枚", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 11, "player_id": "P2", "statement": "俺が占い師だって言ってるのに、なんで疑うの？墓地見た結果も言ってるし。", "intent": "vouch", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 12, "player_id": "P3", "statement": "もう少し詳しく説明して", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 13, "player_id": "P5", "statement": "人狼の可能性あるからな", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 14, "player_id": "P4", "statement": "P2が占い師って言うけど、墓地の情報だけじゃ信じられないよ。もう少し説明してよ。", "intent": "contradict", "target": "P2", "result": "", "basis": ["P5", "P1"]}
+{"type": "statement", "game_id": "acd95c44", "order": 15, "player_id": "P2", "statement": "俺が占い師って言ってるのに、なんで信じないの？墓地の情報も言ってるし。", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 16, "player_id": "P1", "statement": "P2の占い師CO、ちょっと怪しい気がするな。もっと説明してほしい。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 17, "player_id": "P2", "statement": "俺が占い師だって言ってるのに、なんで疑うの？墓地情報も出してるし！", "intent": "contradict", "target": "P4", "result": "", "basis": ["P1"]}
+{"type": "statement", "game_id": "acd95c44", "order": 18, "player_id": "P4", "statement": "P2の占い師CO、墓地情報だけじゃ信じにくいな。", "intent": "contradict", "target": "P2", "result": "", "basis": ["P5", "P1"]}
+{"type": "statement", "game_id": "acd95c44", "order": 19, "player_id": "P1", "statement": "P2の占い師CO、ちょっと信じがたいよね。もう少し詳しく聞かせてよ。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 20, "player_id": "P2", "statement": "俺が占い師だって言ってるのに、なんで信じないの？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 21, "player_id": "P5", "statement": "人狼が2枚と仮定すると，llm1,3 が怪しいか？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 22, "player_id": "P5", "statement": "鶴森もあやしいけど", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 23, "player_id": "P5", "statement": "こっちやったわ", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "acd95c44", "order": 24, "player_id": "P3", "statement": "P2かP1のどちらかは人狼かも", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "vote", "game_id": "acd95c44", "voter": "P3", "target": "P2"}
+{"type": "vote", "game_id": "acd95c44", "voter": "P5", "target": "P2"}
+{"type": "vote", "game_id": "acd95c44", "voter": "P4", "target": "P2"}
+{"type": "vote", "game_id": "acd95c44", "voter": "P2", "target": "P1"}
+{"type": "vote", "game_id": "acd95c44", "voter": "P1", "target": "P2"}

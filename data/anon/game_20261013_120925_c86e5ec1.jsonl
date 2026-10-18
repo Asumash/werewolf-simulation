@@ -1,0 +1,34 @@
+{"type": "meta", "schema_version": 2, "game_id": "c86e5ec1", "timestamp": "20261013_120925", "players": ["P2", "P3", "P4", "P5", "P1"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P2": "怪盗", "P3": "村人", "P4": "村人", "P5": "村人", "P1": "人狼"}, "original_role_map": {"P2": "村人", "P3": "村人", "P4": "怪盗", "P5": "村人", "P1": "人狼"}, "graveyard": ["占い師", "人狼"], "result": {"winner": "werewolf", "executed": ["P4"]}}
+{"type": "statement", "game_id": "c86e5ec1", "order": 0, "player_id": "P2", "statement": "おはよう", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 1, "player_id": "P2", "statement": "挨拶しろよ", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 2, "player_id": "P3", "statement": "自分村人です", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 3, "player_id": "P4", "statement": "怪盗です。P2と交換して、今は村人です。", "intent": "robber_result", "target": "P2", "result": "村人", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 4, "player_id": "P2", "statement": "自分も村人です", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 5, "player_id": "P5", "statement": "P3が村人って言ってるけど、怪しいかもね。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 6, "player_id": "P1", "statement": "P3さんの村人CO、ちょっと怪しいかも。もう少し様子見た方がいいかな。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 7, "player_id": "P3", "statement": "おい", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 8, "player_id": "P3", "statement": "たまには信じてみろよ", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 9, "player_id": "P2", "statement": "君正しいよ", "intent": "vouch", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 10, "player_id": "P3", "statement": "それがおとこってもんじゃーねぇか", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 11, "player_id": "P5", "statement": "P4が怪盗って言ってるけど、P2と村人って言ってるの矛盾してない？", "intent": "contradict", "target": "P4", "result": "", "basis": ["P2", "P3"]}
+{"type": "statement", "game_id": "c86e5ec1", "order": 12, "player_id": "P2", "statement": "矛盾してないやろ", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 13, "player_id": "P1", "statement": "P4が村人って言ってるけど、怪盗の主張が怪しいんじゃないかな。", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 14, "player_id": "P4", "statement": "P5の言ってること、ちょっと矛盾してると思うよ。だって私が村人って言ってるのに、怪盗のCOが怪しいってどういうこと？", "intent": "contradict", "target": "P5", "result": "", "basis": ["P4", "P2", "P3"]}
+{"type": "statement", "game_id": "c86e5ec1", "order": 15, "player_id": "P5", "statement": "P4の怪盗COは矛盾してると思う。P2が村人って言ってるのに、どうして交換して村人になったの？", "intent": "contradict", "target": "P4", "result": "", "basis": ["P2", "P4"]}
+{"type": "statement", "game_id": "c86e5ec1", "order": 16, "player_id": "P4", "statement": "俺が村人って言ってるのに、なんで怪盗が怪しいの？矛盾してるよね。", "intent": "contradict", "target": "P5", "result": "", "basis": ["P1"]}
+{"type": "statement", "game_id": "c86e5ec1", "order": 17, "player_id": "P3", "statement": "こいつ怪しい", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 18, "player_id": "P1", "statement": "P4の怪盗CO、ちょっと怪しい気がするな。村人になった理由が気になる。", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 19, "player_id": "P3", "statement": "こいつも怪しい", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 20, "player_id": "P5", "statement": "P4の主張、P2が村人って言ってるのに交換して村人になったのはおかしいよ。", "intent": "contradict", "target": "P4", "result": "", "basis": ["P2"]}
+{"type": "statement", "game_id": "c86e5ec1", "order": 21, "player_id": "P4", "statement": "いや、俺は村人だって言ってるのに、なんで怪盗が怪しいの？意味わかんない。", "intent": "contradict", "target": "P5", "result": "", "basis": ["P1", "P5"]}
+{"type": "statement", "game_id": "c86e5ec1", "order": 22, "player_id": "P5", "statement": "P4の怪盗COはおかしいよ。P2が村人って言ってるのに、なんで村人になったの？", "intent": "contradict", "target": "P4", "result": "", "basis": ["P2"]}
+{"type": "statement", "game_id": "c86e5ec1", "order": 23, "player_id": "P1", "statement": "うーん、P4の主張、ちょっとおかしい気がするな。どう思う？", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "c86e5ec1", "order": 24, "player_id": "P4", "statement": "俺が村人って言ってるのに、なんで怪盗が怪しいの？意味わかんねー。", "intent": "contradict", "target": "P5", "result": "", "basis": ["P5", "P1"]}
+{"type": "statement", "game_id": "c86e5ec1", "order": 25, "player_id": "P5", "statement": "P4の主張は矛盾してると思う。P2が村人って言ってるのに、なんで村人になったの？", "intent": "contradict", "target": "P4", "result": "", "basis": ["P2"]}
+{"type": "statement", "game_id": "c86e5ec1", "order": 26, "player_id": "P4", "statement": "俺は村人って言ってるのに、なんで怪盗が疑われるのか分からんわ。", "intent": "contradict", "target": "P5", "result": "", "basis": ["P1", "P3"]}
+{"type": "statement", "game_id": "c86e5ec1", "order": 27, "player_id": "P1", "statement": "うーん、P4の怪盗COはちょっと矛盾してるかもね。P2が村人って言ってるのになんで？", "intent": "contradict", "target": "P4", "result": "", "basis": ["P2"]}
+{"type": "vote", "game_id": "c86e5ec1", "voter": "P2", "target": "P3"}
+{"type": "vote", "game_id": "c86e5ec1", "voter": "P3", "target": "P4"}
+{"type": "vote", "game_id": "c86e5ec1", "voter": "P4", "target": "P5"}
+{"type": "vote", "game_id": "c86e5ec1", "voter": "P5", "target": "P4"}
+{"type": "vote", "game_id": "c86e5ec1", "voter": "P1", "target": "P4"}

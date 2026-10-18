@@ -1,0 +1,32 @@
+{"type": "meta", "schema_version": 2, "game_id": "de827270", "timestamp": "20261013_103515", "players": ["P5", "P2", "P3", "P1", "P4"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P5": "村人", "P2": "人狼", "P3": "人狼", "P1": "占い師", "P4": "村人"}, "original_role_map": {"P5": "村人", "P2": "人狼", "P3": "人狼", "P1": "占い師", "P4": "村人"}, "graveyard": ["村人", "怪盗"], "result": {"winner": "village", "executed": ["P2"]}}
+{"type": "statement", "game_id": "de827270", "order": 0, "player_id": "P1", "statement": "占い師です。P2さんを占ったら人狼でした。", "intent": "seer_result", "target": "P2", "result": "人狼", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 1, "player_id": "P4", "statement": "うーん、怪盗が誰かと交換したら、役職が変わるから注意だね。", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 2, "player_id": "P5", "statement": "LLM３かLLM１が人狼ですね", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 3, "player_id": "P2", "statement": "P1が占い師なら、占った結果を早く言ってほしいな。怪しいよ。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 4, "player_id": "P3", "statement": "P1が占い師なら、他の人も疑った方がいいんじゃない？", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 5, "player_id": "P1", "statement": "P2が人狼なのは確実だよ。議論の流れも怪しいし、他の人も注意して。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 6, "player_id": "P2", "statement": "P1が占い師なら、他の人も疑った方がいいと思うけど。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 7, "player_id": "P3", "statement": "P1の占い結果は怪しいよね。もっと他の人も見ようよ。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 8, "player_id": "P5", "statement": "LLM３はすでに疑いを行っています", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 9, "player_id": "P1", "statement": "P2は人狼確定だから、みんな投票はP2でお願いします。", "intent": "vote_suggest", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 10, "player_id": "P4", "statement": "P1が占い師なら、占った結果をもっと早く出すべきじゃない？", "intent": "contradict", "target": "P1", "result": "", "basis": ["P2", "P3"]}
+{"type": "statement", "game_id": "de827270", "order": 11, "player_id": "P2", "statement": "P1の言い分はおかしいよ。俺が人狼なら、もっと上手く隠すと思うけどな。", "intent": "contradict", "target": "P1", "result": "", "basis": ["P1"]}
+{"type": "statement", "game_id": "de827270", "order": 12, "player_id": "P1", "statement": "P2が人狼なのは確実だよ。他の人ももっと疑ってみて。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 13, "player_id": "P3", "statement": "P1の占い結果、信じられないな。他の人も見てみるべきじゃない？", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 14, "player_id": "P5", "statement": "LLM１が怪しく感じます", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 15, "player_id": "P1", "statement": "P2は人狼確定だよ。みんな投票はP2でお願いします。", "intent": "vote_suggest", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 16, "player_id": "P2", "statement": "P1の占い結果は怪しいと思う。もっと他の人も見ようよ。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 17, "player_id": "P1", "statement": "P2が人狼なのは確定だから、みんな投票はP2でお願いします。", "intent": "vote_suggest", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 18, "player_id": "P5", "statement": "LLM１に投票しましょう", "intent": "vote_suggest", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 19, "player_id": "P4", "statement": "P1が占い師なら、もっと早く結果出すべきじゃない？", "intent": "contradict", "target": "P1", "result": "", "basis": ["P2", "P3"]}
+{"type": "statement", "game_id": "de827270", "order": 20, "player_id": "P3", "statement": "P1の結果が怪しいと思う。もっと他の人を見ようよ。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 21, "player_id": "P2", "statement": "P1の占い結果、信じられないな。もっと他を見ようよ。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 22, "player_id": "P1", "statement": "P2が人狼なのは確定だから、投票はP2でお願いします。", "intent": "vote_suggest", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 23, "player_id": "P2", "statement": "P1の占い結果は怪しいよ。疑うべきは他にもいるはずじゃない？", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 24, "player_id": "P3", "statement": "P1の占い結果、ちょっと信じられないな。他にも疑うべき人いると思う。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "de827270", "order": 25, "player_id": "P1", "statement": "P2は人狼確定だから、みんな投票はP2でお願いします。", "intent": "vote_suggest", "target": "P2", "result": "", "basis": []}
+{"type": "vote", "game_id": "de827270", "voter": "P5", "target": "P2"}
+{"type": "vote", "game_id": "de827270", "voter": "P2", "target": "P1"}
+{"type": "vote", "game_id": "de827270", "voter": "P3", "target": "P1"}
+{"type": "vote", "game_id": "de827270", "voter": "P1", "target": "P2"}
+{"type": "vote", "game_id": "de827270", "voter": "P4", "target": "P2"}

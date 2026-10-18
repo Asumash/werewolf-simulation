@@ -1,0 +1,33 @@
+{"type": "meta", "schema_version": 2, "game_id": "d56c3119", "timestamp": "20261013_142414", "players": ["P4", "P3", "P1", "P2", "P5"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P4": "村人", "P3": "人狼", "P1": "怪盗", "P2": "人狼", "P5": "村人"}, "original_role_map": {"P4": "村人", "P3": "人狼", "P1": "人狼", "P2": "怪盗", "P5": "村人"}, "graveyard": ["村人", "占い師"], "result": {"winner": "werewolf", "executed": ["P1"]}}
+{"type": "statement", "game_id": "d56c3119", "order": 0, "player_id": "P1", "statement": "うーん、やっぱり怪盗が怪しい気がする。何か隠してるんじゃない？", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 1, "player_id": "P3", "statement": "村人", "intent": "seer_result", "target": "P2", "result": "村人陣営", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 2, "player_id": "P5", "statement": "怪盗が怪しいって言ってるけど、怪盗の役職を隠してるのは人狼かもね。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 3, "player_id": "P2", "statement": "P1が怪盗を疑うのはちょっと変じゃない?村人陣営の誰かが怪しいと思うけど。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 4, "player_id": "P4", "statement": "ほかに占い師はいますか", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 5, "player_id": "P1", "statement": "怪盗の言動が怪しい気がする。みんな、考えてみて。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 6, "player_id": "P2", "statement": "うーん、P1が怪盗を疑うのはおかしいと思う。村人の誰かが怪しいよ。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 7, "player_id": "P3", "statement": "誰が怪盗かわかってる？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 8, "player_id": "P1", "statement": "怪盗が急に疑われるのは変じゃない？村人の誰かが怪しいと思うけど。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 9, "player_id": "P5", "statement": "P1が怪盗を疑うのは村人陣営の行動にしてはおかしいよね。", "intent": "contradict", "target": "P1", "result": "", "basis": ["P3", "P2"]}
+{"type": "statement", "game_id": "d56c3119", "order": 10, "player_id": "P2", "statement": "P1が怪盗を疑うのは変だよ。村人の誰かが怪しいと思う。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 11, "player_id": "P1", "statement": "うーん、P2が怪しい感じがするな。みんな、どう思う？", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 12, "player_id": "P4", "statement": "LLM2の会話がおかしいと思います", "intent": "suspect", "target": "P2", "result": "", "basis": ["P2"]}
+{"type": "statement", "game_id": "d56c3119", "order": 13, "player_id": "P2", "statement": "P1が怪盗疑うのはおかしいよ。村人の誰かが怪しいと思う。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 14, "player_id": "P3", "statement": "村人だよ", "intent": "vouch", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 15, "player_id": "P2", "statement": "うーん、P1が怪盗を疑うのは村人として変じゃない？他の村人が怪しいと思う。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 16, "player_id": "P5", "statement": "P1が怪盗を疑うのは、村人から見て変だよね。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 17, "player_id": "P1", "statement": "うーん、P2が怪しい気がする。みんなどう思う？", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 18, "player_id": "P3", "statement": "llm 3 とか怪しくない？", "intent": "vote_suggest", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 19, "player_id": "P3", "statement": "llm 1, 2 はどう思う？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 20, "player_id": "P2", "statement": "うーん、P1の方が怪しいと思う。村人の誰かを疑おうよ。", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 21, "player_id": "P5", "statement": "P3が村人って言うのは、ちょっと怪しいかも。根拠はないけど。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 22, "player_id": "P1", "statement": "P3が村人って言ってるの、ちょっと怪しいよね。みんなどう思う？", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 23, "player_id": "P4", "statement": "LLM１が怪しい気がする", "intent": "vote_suggest", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 24, "player_id": "P1", "statement": "うーん、P5の言ってることが怪しい気がする。みんなどう思う？", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 25, "player_id": "P3", "statement": "君の見解を教えて", "intent": "ask", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "d56c3119", "order": 26, "player_id": "P5", "statement": "P3が村人って言ってるの、逆に怪しいかもね。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "vote", "game_id": "d56c3119", "voter": "P4", "target": "P1"}
+{"type": "vote", "game_id": "d56c3119", "voter": "P3", "target": "P4"}
+{"type": "vote", "game_id": "d56c3119", "voter": "P1", "target": "P2"}
+{"type": "vote", "game_id": "d56c3119", "voter": "P2", "target": "P1"}
+{"type": "vote", "game_id": "d56c3119", "voter": "P5", "target": "P1"}

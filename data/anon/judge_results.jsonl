@@ -1,0 +1,1 @@
+{"game_id": "de827270", "file": "game_20261013_103515_de827270.jsonl", "predictions": {"haiku": {"model": "anthropic/claude-haiku-4.5", "pred": {"P1": "llm", "P2": "cpu", "P3": "cpu", "P4": "cpu", "P5": "llm"}, "eval": {"total": 5, "correct": 1, "per_type": {"human": {"tp": 0, "fp": 0, "fn": 1}, "cpu": {"tp": 0, "fp": 3, "fn": 0}, "llm": {"tp": 1, "fp": 1, "fn": 3}}}}}}

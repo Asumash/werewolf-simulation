@@ -1,4 +1,6 @@
 data/
+!data/human/
+!data/anon/
 .env
 __pycache__/
 *.pyc

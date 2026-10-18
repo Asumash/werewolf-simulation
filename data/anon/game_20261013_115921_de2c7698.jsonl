@@ -1,0 +1,27 @@
+{"type": "meta", "schema_version": 2, "game_id": "de2c7698", "timestamp": "20261013_115921", "players": ["P3", "P2", "P1", "P4", "P5"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P3": "村人", "P2": "村人", "P1": "人狼", "P4": "占い師", "P5": "人狼"}, "original_role_map": {"P3": "村人", "P2": "村人", "P1": "人狼", "P4": "占い師", "P5": "人狼"}, "graveyard": ["村人", "怪盗"], "result": {"winner": "werewolf", "executed": ["P2"]}}
+{"type": "statement", "game_id": "de2c7698", "order": 0, "player_id": "P3", "statement": "こんちは", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 1, "player_id": "P2", "statement": "こんにちは", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 2, "player_id": "P5", "statement": "P3さん、なんか怪しい気がするんだけど。どう思う？", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 3, "player_id": "P2", "statement": "占いいる？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 4, "player_id": "P3", "statement": "なんでやねん", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 5, "player_id": "P1", "statement": "P2、占い師って言ってるならもっと早く結果言ったほうがいいんじゃない？", "intent": "ask", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 6, "player_id": "P4", "statement": "俺が占い師だ。墓地は村人と怪盗。怪盗がいるから注意して。", "intent": "seer_result", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 7, "player_id": "P3", "statement": "貴様人狼やろ", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 8, "player_id": "P5", "statement": "P2が占い師って言ってるの、怪しい気がするなぁ。どんな結果出たの？", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 9, "player_id": "P4", "statement": "P2、占い師名乗るなら結果早く言ってよ。怪しいぞ。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 10, "player_id": "P2", "statement": "おかしいぞお前", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 11, "player_id": "P2", "statement": "俺は占いじゃない", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 12, "player_id": "P4", "statement": "P2、占い師名乗るなら結果早く言えよ。怪しいぞ。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 13, "player_id": "P3", "statement": "お前何の根拠もなしに疑ってきたやん", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 14, "player_id": "P5", "statement": "P3さん、なんか言ってることが矛盾してると思うよ。P2は占い師じゃないって言ってるし。", "intent": "contradict", "target": "P3", "result": "", "basis": ["P4", "P2"]}
+{"type": "statement", "game_id": "de2c7698", "order": 15, "player_id": "P1", "statement": "P2が怪しいと思う。なんか言動が不自然じゃない？", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 16, "player_id": "P4", "statement": "P2が占い師名乗るのはおかしい。俺が本物だ。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 17, "player_id": "P3", "statement": "お前も誘導してないか？", "intent": "suspect", "target": "P1", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 18, "player_id": "P1", "statement": "P2、全然占い師っぽくないよね。怪しいと思う。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 19, "player_id": "P4", "statement": "P2が占い師名乗るのはおかしい。俺が本物だから！", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "de2c7698", "order": 20, "player_id": "P5", "statement": "P2が占い師名乗るの、めっちゃ怪しいと思うんだけど。", "intent": "suspect", "target": "P2", "result": "", "basis": []}
+{"type": "vote", "game_id": "de2c7698", "voter": "P3", "target": "P1"}
+{"type": "vote", "game_id": "de2c7698", "voter": "P2", "target": "P1"}
+{"type": "vote", "game_id": "de2c7698", "voter": "P1", "target": "P2"}
+{"type": "vote", "game_id": "de2c7698", "voter": "P4", "target": "P2"}
+{"type": "vote", "game_id": "de2c7698", "voter": "P5", "target": "P2"}

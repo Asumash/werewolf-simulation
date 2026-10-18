@@ -1,0 +1,31 @@
+{"type": "meta", "schema_version": 2, "game_id": "39bf478f", "timestamp": "20261013_122056", "players": ["P4", "P3", "P2", "P5", "P1"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P4": "占い師", "P3": "怪盗", "P2": "村人", "P5": "人狼", "P1": "村人"}, "original_role_map": {"P4": "占い師", "P3": "人狼", "P2": "村人", "P5": "怪盗", "P1": "村人"}, "graveyard": ["人狼", "村人"], "result": {"winner": "werewolf", "executed": ["P4"]}}
+{"type": "statement", "game_id": "39bf478f", "order": 0, "player_id": "P3", "statement": "おはよう", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 1, "player_id": "P2", "statement": "P3の発言、何か裏がありそうじゃない？もっと詳しく話してよ。", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 2, "player_id": "P5", "statement": "俺、占い師だ。P4さんを占ったら人狼だった。信じてほしい。", "intent": "seer_result", "target": "P4", "result": "人狼", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 3, "player_id": "P1", "statement": "P3の発言が気になるんだけど、何か隠してるんじゃない？", "intent": "suspect", "target": "P3", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 4, "player_id": "P3", "statement": "え？挨拶しただけじゃん", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 5, "player_id": "P4", "statement": "占い師です　墓地見たけど人狼と村人しかありませんでした", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 6, "player_id": "P4", "statement": "あ？", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 7, "player_id": "P3", "statement": "占いあやしくないか？急すぎる", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 8, "player_id": "P5", "statement": "P4の占い師主張は怪しい。村人のふりして占い結果を信じさせようとしてるんじゃない？", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 9, "player_id": "P4", "statement": "おめえ嘘ついてるな", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 10, "player_id": "P5", "statement": "P4の占い師主張、怪しいと思う。もっと情報出して！", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 11, "player_id": "P4", "statement": "墓地に人狼が1枚あったので人狼1人しかいません。P5だけが人狼です", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 12, "player_id": "P2", "statement": "P4の占い師主張は矛盾してる。墓地に人狼しかいないって、どういうこと？", "intent": "contradict", "target": "P4", "result": "", "basis": ["P5"]}
+{"type": "statement", "game_id": "39bf478f", "order": 13, "player_id": "P3", "statement": "P4は占い師とは言ってなくない？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 14, "player_id": "P4", "statement": "P4占い師だよ", "intent": "suspect", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 15, "player_id": "P5", "statement": "P4の占い師主張、明らかに怪しいね。こいつ人狼じゃない？", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 16, "player_id": "P2", "statement": "P4の主張、矛盾してるよ。墓地に人狼1枚なら、もう1人はどこ行った？", "intent": "contradict", "target": "P4", "result": "", "basis": ["P5", "P3"]}
+{"type": "statement", "game_id": "39bf478f", "order": 17, "player_id": "P4", "statement": "投票を誘導しているね", "intent": "seer_result", "target": "P5", "result": "人狼", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 18, "player_id": "P1", "statement": "P4の占い師主張、墓地の人狼数と矛盾してるよね。", "intent": "contradict", "target": "P4", "result": "", "basis": ["P2", "P5"]}
+{"type": "statement", "game_id": "39bf478f", "order": 19, "player_id": "P4", "statement": "もう一人はP5やん", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 20, "player_id": "P5", "statement": "P4の占い師主張、めちゃくちゃ怪しいよね。村人のふりしてる？", "intent": "suspect", "target": "P4", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 21, "player_id": "P2", "statement": "P4の占い師主張、墓地の人狼数と矛盾してるよね。明らかに怪しい。", "intent": "contradict", "target": "P4", "result": "", "basis": ["P5", "P1"]}
+{"type": "statement", "game_id": "39bf478f", "order": 22, "player_id": "P1", "statement": "P4の占い師主張、墓地に人狼が1枚なら他に人狼いないのに矛盾してるよね。", "intent": "contradict", "target": "P4", "result": "", "basis": ["P2", "P5"]}
+{"type": "statement", "game_id": "39bf478f", "order": 23, "player_id": "P3", "statement": "P4が人狼って占い結果出てるしP4が人狼じゃん", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "39bf478f", "order": 24, "player_id": "P4", "statement": "矛盾してないてー", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "vote", "game_id": "39bf478f", "voter": "P4", "target": "P5"}
+{"type": "vote", "game_id": "39bf478f", "voter": "P3", "target": "P4"}
+{"type": "vote", "game_id": "39bf478f", "voter": "P2", "target": "P4"}
+{"type": "vote", "game_id": "39bf478f", "voter": "P5", "target": "P4"}
+{"type": "vote", "game_id": "39bf478f", "voter": "P1", "target": "P4"}

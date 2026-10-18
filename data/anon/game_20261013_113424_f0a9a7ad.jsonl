@@ -1,0 +1,35 @@
+{"type": "meta", "schema_version": 2, "game_id": "f0a9a7ad", "timestamp": "20261013_113424", "players": ["P3", "P5", "P2", "P1", "P4"], "players_meta": {"P1": {"index": 0}, "P2": {"index": 1}, "P3": {"index": 2}, "P4": {"index": 3}, "P5": {"index": 4}}, "role_map": {"P3": "村人", "P5": "占い師", "P2": "村人", "P1": "怪盗", "P4": "人狼"}, "original_role_map": {"P3": "村人", "P5": "占い師", "P2": "村人", "P1": "人狼", "P4": "怪盗"}, "graveyard": ["人狼", "村人"], "result": {"winner": "werewolf", "executed": ["P3"]}}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 0, "player_id": "P1", "statement": "こんちは", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 1, "player_id": "P2", "statement": "どうも", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 2, "player_id": "P5", "statement": "おはよう", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 3, "player_id": "P4", "statement": "夜がきたね", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 4, "player_id": "P3", "statement": "占い結果よろしくお願いします", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 5, "player_id": "P5", "statement": "うらないしました", "intent": "seer_result", "target": "P2", "result": "村人陣営", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 6, "player_id": "P4", "statement": "いいね", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 7, "player_id": "P1", "statement": "どうやった", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 8, "player_id": "P5", "statement": "P2しろ", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 9, "player_id": "P3", "statement": "怪盗はいますか？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 10, "player_id": "P2", "statement": "P5信じます", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 11, "player_id": "P5", "statement": "いいね", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 12, "player_id": "P3", "statement": "とりあえず白っぽい", "intent": "vouch", "target": "P5", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 13, "player_id": "P4", "statement": "しろ", "intent": "vouch", "target": "P2", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 14, "player_id": "P1", "statement": "怪盗なし？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 15, "player_id": "P4", "statement": "墓地ちゃう", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 16, "player_id": "P2", "statement": "これ以外情報なし？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 17, "player_id": "P5", "statement": "怪盗行ってない可能性は全然あるんじゃない？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 18, "player_id": "P3", "statement": "もしくは怪盗が人狼引いて黙ってるか", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 19, "player_id": "P4", "statement": "なるほどね", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 20, "player_id": "P1", "statement": "なるほど", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 21, "player_id": "P3", "statement": "偽証がいないなら結局３択になるね", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 22, "player_id": "P5", "statement": "情報が少ないね", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 23, "player_id": "P4", "statement": "セオリー的にはここからどうしたらええんや", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 24, "player_id": "P2", "statement": "残りは皆村人を主張？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 25, "player_id": "P4", "statement": "そうやね", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 26, "player_id": "P3", "statement": "YES", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 27, "player_id": "P1", "statement": "yes", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "statement", "game_id": "f0a9a7ad", "order": 28, "player_id": "P1", "statement": "占いって一回しか無理なんやっけ？", "intent": "none", "target": "", "result": "", "basis": []}
+{"type": "vote", "game_id": "f0a9a7ad", "voter": "P3", "target": "P4"}
+{"type": "vote", "game_id": "f0a9a7ad", "voter": "P5", "target": "P1"}
+{"type": "vote", "game_id": "f0a9a7ad", "voter": "P2", "target": "P3"}
+{"type": "vote", "game_id": "f0a9a7ad", "voter": "P1", "target": "P2"}
+{"type": "vote", "game_id": "f0a9a7ad", "voter": "P4", "target": "P3"}
