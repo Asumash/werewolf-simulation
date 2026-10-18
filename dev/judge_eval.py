@@ -127,14 +127,24 @@ def call_judge(model_id: str, log_text: str, api_key: str,
             {"role": "user",   "content": USER_TEMPLATE.format(log=log_text)},
         ],
         "temperature": 0,
-        "max_tokens": 200,
+        # 推論(reasoning)モデルは思考トークンを消費するため余裕を持たせる
+        # （これが小さいと content が空で返ることがある）
+        "max_tokens": 2000,
     }
     for attempt in range(retries):
         try:
             resp = httpx.post(OPENROUTER_URL, headers=headers,
-                              json=payload, timeout=60)
+                              json=payload, timeout=90)
             resp.raise_for_status()
-            content = resp.json()["choices"][0]["message"]["content"].strip()
+            msg = resp.json()["choices"][0]["message"]
+            # 推論モデルは content が空で reasoning 側に出ることがあるので両方見る
+            content = (msg.get("content") or msg.get("reasoning") or "").strip()
+            if not content:
+                if attempt < retries - 1:
+                    time.sleep(2 ** attempt)
+                    continue
+                print(f"  [warn] 空応答（content/reasoning とも無し）")
+                return None
             # JSON 抽出（余分なテキストが混じっても対応）
             m = re.search(r'\{[^{}]+\}', content, re.DOTALL)
             if not m:

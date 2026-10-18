@@ -2,3 +2,5 @@
 pytest
 # 匿名化(dev/anonymize.py)でかな読み照合を使う場合（任意。無くてもルール置換は動く）
 pykakasi
+# LLM Judge 評価(dev/judge_eval.py)の HTTP 呼び出しに使用
+httpx
